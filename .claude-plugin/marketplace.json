@@ -9,6 +9,12 @@
       "description": "SDLC skills you configure for your environment: configure-it, plan-it, build-it, stage-it, review-it.",
       "source": "./plugins/compose-it",
       "category": "development"
+    },
+    {
+      "name": "explorer",
+      "description": "Map your SDLC environment (forge, tracker, CI/CD, registries, cloud auth, conventions, gates) into ENV_MAP.md for you and your agents, without recording secrets.",
+      "source": "./plugins/explorer",
+      "category": "development"
     }
   ]
 }
