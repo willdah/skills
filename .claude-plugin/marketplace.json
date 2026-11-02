@@ -1,0 +1,14 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "willdah-skills",
+  "description": "Will's Claude Code plugins and skills.",
+  "owner": { "name": "Will (willdah)", "url": "https://github.com/willdah" },
+  "plugins": [
+    {
+      "name": "compose-it",
+      "description": "SDLC skills you configure for your environment: configure-it, plan-it, build-it, stage-it, review-it.",
+      "source": "./plugins/compose-it",
+      "category": "development"
+    }
+  ]
+}
