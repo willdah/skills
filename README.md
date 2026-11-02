@@ -1,10 +1,19 @@
 # willdah/skills
 
-Claude Code plugins and skills by Will ([willdah](https://github.com/willdah)).
+Plugins and skills for Claude Code and GitHub Copilot CLI, by Will ([willdah](https://github.com/willdah)).
+
+Claude Code:
 
 ```
 /plugin marketplace add willdah/skills
 /plugin install compose-it@willdah-skills
+```
+
+GitHub Copilot CLI:
+
+```
+copilot plugin marketplace add willdah/skills
+copilot plugin install compose-it@willdah-skills
 ```
 
 | Plugin | What it does |

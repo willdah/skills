@@ -2,9 +2,18 @@
 
 Five skills that take work from requirement to a reviewed PR, and follow your environment's rules instead of hard-coding which skills to use.
 
+Claude Code:
+
 ```
 /plugin marketplace add willdah/skills
 /plugin install compose-it@willdah-skills
+```
+
+GitHub Copilot CLI:
+
+```
+copilot plugin marketplace add willdah/skills
+copilot plugin install compose-it@willdah-skills
 ```
 
 | Skill | Does |
@@ -26,9 +35,9 @@ Each phase reads `docs/compose-it/<phase>.md` in the repo, then `~/.config/compo
 | Phase | Default skill | Without it |
 | --- | --- | --- |
 | plan | `grilling`, `to-spec`, `to-tickets` | built-in interview and spec format |
-| build | `ponytail:ponytail` (full), `tdd` | built-in smallest-change and test-first guidance |
+| build | `ponytail` (full), `tdd` | built-in smallest-change and test-first guidance |
 | stage | none | built-in PR template |
-| review | `ponytail:ponytail-review` | built-in review checklist |
+| review | `ponytail-review` | built-in review checklist |
 
 None are bundled. Install the ones you want; see [CREDITS.md](CREDITS.md) for their owners.
 

@@ -32,7 +32,7 @@ Say in one line what you loaded and which skills you will use, for example `conf
 
 For each skill you will use that is not installed, say `<skill> not installed; using built-in guidance` and follow the built-in fallback. Never stop because a skill is missing.
 
-To call a skill, use the Skill tool with the name the available-skills list shows for it. Plugin skills carry their plugin's prefix, for example `ponytail:ponytail` or `compose-it:review-it`. A job name such as **tests** is a slot, not a skill: call the skill you resolved for it.
+To call a skill, invoke it the way your agent loads skills (in Claude Code, the Skill tool), by the name your agent lists it under. Defaults below use bare names; some agents add a plugin prefix (Claude Code lists `ponytail` as `ponytail`). A job name such as **tests** is a slot, not a skill: call the skill you resolved for it.
 
 Defaults, by job: **grill** `grilling`; **spec** `to-spec`; **split** `to-tickets`. A `## Use` item replaces the default for the job it names (`- spec: our-spec-writer`); jobs it does not name keep their default.
 
@@ -40,13 +40,13 @@ Defaults, by job: **grill** `grilling`; **spec** `to-spec`; **split** `to-ticket
 
 ## 1. Grill
 
-Call the Skill tool with the skill you resolved for **grill** in step 0 (default `grilling`) on the user's request. Fallback: interview the user one question at a time; give your recommended answer with each question; explore the codebase instead of asking when the code can answer; walk every branch of the design until each decision is resolved.
+Invoke the skill you resolved for **grill** in step 0 (default `grilling`) on the user's request. Fallback: interview the user one question at a time; give your recommended answer with each question; explore the codebase instead of asking when the code can answer; walk every branch of the design until each decision is resolved.
 
 Do not write the spec until the user agrees the open questions are resolved.
 
 ## 2. Write the spec
 
-Call the Skill tool with the skill you resolved for **spec** in step 0 (default `to-spec`) on the resolved session, but make sure the result has this core. Fallback: write it yourself.
+Invoke the skill you resolved for **spec** in step 0 (default `to-spec`) on the resolved session, but make sure the result has this core. Fallback: write it yourself.
 
 ```markdown
 # <title>
@@ -71,7 +71,7 @@ One paragraph: what is wrong or missing, and for whom.
 
 Add other sections (constraints, open questions, links) when the grilling produced them. If the tracker has a house issue template for specs or features, fit the spec into it and keep the core sections. Apply every `## Rules` item, for example a required field, and pass every `## Gates` item.
 
-**Large work:** if the work will not fit one reviewable PR, split it: call the Skill tool with the skill you resolved for **split** in step 0 (default `to-tickets`) (fallback: one child spec per slice that can ship on its own). Each child has the full core and links its parent; the parent lists its children.
+**Large work:** if the work will not fit one reviewable PR, split it: invoke the skill you resolved for **split** in step 0 (default `to-tickets`) (fallback: one child spec per slice that can ship on its own). Each child has the full core and links its parent; the parent lists its children.
 
 ## 3. Store the spec
 
