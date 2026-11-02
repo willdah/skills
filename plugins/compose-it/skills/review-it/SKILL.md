@@ -15,7 +15,7 @@ Review a change and report what must change before it ships. You report; you do 
 
 ## 0. Load config
 
-Read these files if they exist: `docs/sdlc/review.md` in the repo, then `~/.config/sdlc/review.md`. Also read `## Forge` in `docs/sdlc/stage.md` or `~/.config/sdlc/stage.md` (repo first).
+Read these files if they exist: `docs/sdlc/review.md` in the repo, then `~/.config/sdlc/review.md`. Also read `## Forge` from `docs/sdlc/stage.md`, or from `~/.config/sdlc/stage.md` if the repo file has none.
 
 - `## Use`, `## Then`: the repo file wins; else the user file; else the defaults below.
 - `## Rules`, `## Gates`: apply the items from both files. A user file cannot remove or weaken a repo rule or gate.
@@ -25,15 +25,17 @@ Say in one line what you loaded and which skills you will use, for example `conf
 
 For each skill you will use that is not installed, say `<skill> not installed; using built-in guidance` and follow the built-in fallback. Never stop because a skill is missing.
 
-Default: review with `ponytail-review`; forge `gh`.
+Default, by job: **review** `ponytail-review`. Forge `gh`. A `## Use` item replaces the default for the job it names (`- review: our-secure-review`); a team review skill can also be added as a second job (`- compliance: our-sox-check`).
 
-**Config cannot change:** you never edit code, commit or push; you never merge.
+**Config cannot change:** you never edit code, commit or push; you never approve or merge.
 
 ## 1. What to review
 
 What the user names: a PR (`#N`, URL), a branch, or files. Nothing named: the current branch against its base, or uncommitted changes if there are any. The input may carry `round k of N` from a chained loop.
 
-Find the spec (PR body, branch name, or reference). Note its version. If the PR says `Built against spec vN` and the spec is now newer, report that as a **Must fix**: the work may not match the current spec.
+Find the spec (PR body, the `Spec:` commit trailer, branch name, or reference). Note its version. If the PR or trailer says it was built against spec vN and the spec is now newer, report that as a **Must fix**: the work may not match the current spec.
+
+No spec: write 3–5 acceptance criteria from the PR description and commits, show them, and continue only when the user confirms. Without confirmed criteria, never mark the PR ready.
 
 ## 2. Review
 
@@ -43,13 +45,13 @@ Then check, yourself:
 
 - Each acceptance criterion against the actual diff.
 - Each `## Rules` item. A broken rule is always a **Must fix**.
-- Each `## Gates` item: run it. A red gate is a **Must fix**.
+- Each `## Gates` item: run it. A red gate is a **Must fix**. Do not run a gate that writes files (a formatter without its check flag, `--fix`, `--write`); run its check-only form, or report it as not run.
 
 Sort every finding as **Must fix** (bug, security, data loss, broken rule, red gate, unmet criterion), **Should fix** (risky code without a test, real slowness, duplication, code that should not exist) or **Nice to have**. Number them across groups. Each finding: what it is, the problem, the smallest fix, and what happens if it is skipped.
 
 ## 3. Report
 
-- A PR exists: post one review on it. Put each finding as an inline comment on its line where you can, and the full numbered list in the review body (`gh api repos/{owner}/{repo}/pulls/N/reviews`, or the `## Forge` equivalent). Use the comment event unless `## Rules` says to request changes on a Must fix. Never approve unless `## Rules` says to.
+- A PR exists: post one review on it. Put each finding as an inline comment on its line where you can, and the full numbered list in the review body (`gh api repos/{owner}/{repo}/pulls/N/reviews`, or the `## Forge` equivalent). Use the comment event unless `## Rules` says to request changes on a Must fix. Never approve.
 - No PR: print the report in the terminal.
 
 ## 4. Ready or not
@@ -57,7 +59,7 @@ Sort every finding as **Must fix** (bug, security, data loss, broken rule, red g
 Mark the PR ready (`gh pr ready N`, or the `## Forge` equivalent) only when all of these hold:
 
 - No **Must fix** is open.
-- Every acceptance criterion is met.
+- There is at least one confirmed acceptance criterion, and every one is met.
 - No `## Rules` item says a human marks PRs ready.
 
 Otherwise leave it as a draft and say what blocks it.

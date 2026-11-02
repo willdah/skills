@@ -12,7 +12,7 @@ metadata:
         note: the explore, propose, confirm, write flow
 ---
 
-Draft the compose-it config for this environment. Explore first, propose one phase at a time, write only what the user confirms. The format is in this plugin's `docs/config.md`: four optional headings, `## Use`, `## Rules`, `## Gates`, `## Then`, plus `## Forge` in `stage.md`.
+Draft the compose-it config for this environment. You only read the repo and write config files: never commit, push, open PRs or merge. Explore first, propose one phase at a time, write only what the user confirms. The format is in this plugin's `docs/config.md`: four optional headings, `## Use`, `## Rules`, `## Gates`, `## Then`, plus `## Forge` in `stage.md`.
 
 ## 1. Explore
 
@@ -24,7 +24,7 @@ Read what exists; do not assume:
 - House templates: PR and issue templates.
 - Rules: `CONTRIBUTING.md`, `CODEOWNERS`, `SECURITY.md`, `CLAUDE.md`, `AGENTS.md`, branch and commit conventions in git history.
 - Existing config: `docs/sdlc/*.md` and `~/.config/sdlc/*.md`.
-- Installed skills: which of the defaults (`grilling`, `to-spec`, `to-tickets`, `ponytail`, `tdd`, `ponytail-review`) and which alternatives the user has.
+- Installed skills: which of the defaults (`grilling`, `to-spec`, `to-tickets`, `ponytail`, `tdd`, `ponytail-review`) and which alternatives the user has. Propose an alternative as `- <job>: <skill>`, for example `- tests: our-tdd`.
 
 ## 2. Ask where to write
 
@@ -42,7 +42,7 @@ Things to propose when you find them:
 
 - `plan.md`: where specs go (forge issues, a tracker, or files); required spec fields.
 - `build.md`: the CI commands as `## Gates`; branch and commit conventions that differ from Conventional Branch and conventional commits; rules from `CONTRIBUTING.md` and agent instructions; a worktree rule if the user works with parallel agents.
-- `stage.md`: `## Forge` commands when the forge is not GitHub (map each `gh` command the skills use to the forge CLI); a rule if the team does not use draft PRs. A house PR template is used automatically, so it needs no line.
+- `stage.md`: `## Forge` commands when the forge is not GitHub (map each `gh` command the skills use to the forge CLI, including how to mark a PR draft and ready). A house PR template is used automatically, so it needs no line.
 - `review.md`: compliance and review rules from `CONTRIBUTING.md`, `SECURITY.md`, `CODEOWNERS`; whether review-it may mark PRs ready; chaining and loop rounds.
 
 ## 4. Write

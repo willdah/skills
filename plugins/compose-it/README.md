@@ -34,4 +34,4 @@ None are bundled. Install the ones you want; see [CREDITS.md](CREDITS.md) for th
 
 ## Never
 
-No skill merges a PR. review-it never edits code. build-it and stage-it never hand off on a red gate.
+No skill merges or approves a PR, and only review-it marks one ready. review-it never edits code. build-it and stage-it never hand off on a red gate.

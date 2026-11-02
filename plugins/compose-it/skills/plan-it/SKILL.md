@@ -23,17 +23,19 @@ Turn what the user wants into a spec the other compose-it skills can check work 
 
 ## 0. Load config
 
-Read these files if they exist: `docs/sdlc/plan.md` in the repo, then `~/.config/sdlc/plan.md`. Also read `## Forge` in `docs/sdlc/stage.md` or `~/.config/sdlc/stage.md` (repo first).
+Read these files if they exist: `docs/sdlc/plan.md` in the repo, then `~/.config/sdlc/plan.md`. Also read `## Forge` from `docs/sdlc/stage.md`, or from `~/.config/sdlc/stage.md` if the repo file has none.
 
 - `## Use`, `## Then`: the repo file wins; else the user file; else the defaults below.
-- `## Rules`: apply the items from both files. A user file cannot remove or weaken a repo rule.
+- `## Rules`, `## Gates`: apply the items from both files. A user file cannot remove or weaken a repo rule or gate. Gates here are checks the spec must pass before hand-off.
 - Any other text is context.
 
 Say in one line what you loaded and which skills you will use, for example `config: repo docs/sdlc/plan.md, user none · using: grilling, to-spec`. With no files, say once: `no compose-it config; using defaults (run /configure-it to tailor)`.
 
 For each skill you will use that is not installed, say `<skill> not installed; using built-in guidance` and follow the built-in fallback. Never stop because a skill is missing.
 
-Defaults: grill with `grilling`; write the spec with `to-spec`; split large work with `to-tickets`.
+Defaults, by job: **grill** `grilling`; **spec** `to-spec`; **split** `to-tickets`. A `## Use` item replaces the default for the job it names (`- spec: our-spec-writer`); jobs it does not name keep their default.
+
+**Config cannot change:** you never merge a PR; you always grill before writing the spec.
 
 ## 1. Grill
 
@@ -66,7 +68,7 @@ One paragraph: what is wrong or missing, and for whom.
 - v1 (<date>): first version.
 ```
 
-Add other sections (constraints, open questions, links) when the grilling produced them. Apply every `## Rules` item, for example a required field.
+Add other sections (constraints, open questions, links) when the grilling produced them. If the tracker has a house issue template for specs or features, fit the spec into it and keep the core sections. Apply every `## Rules` item, for example a required field, and pass every `## Gates` item.
 
 **Large work:** if the work will not fit one reviewable PR, split it with the split skill (fallback: one child spec per slice that can ship on its own). Each child has the full core and links its parent; the parent lists its children.
 

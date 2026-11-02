@@ -23,10 +23,12 @@ All four are optional. Write them as plain markdown lists.
 
 | Heading | Means | Repo and user both set it |
 | --- | --- | --- |
-| `## Use` | Skills to call for this phase, replacing the defaults | Repo wins |
+| `## Use` | Skills to call for this phase, by job, replacing that job's default | Repo wins |
 | `## Rules` | Requirements the work must meet | Both apply |
 | `## Gates` | Checks that must pass before the phase is done (commands preferred) | Both apply |
 | `## Then` | The skill to chain into when this phase is done | Repo wins |
+
+Write each `## Use` item as `- <job>: <skill>`, for example `- tests: our-tdd`. It replaces the default for that job; jobs you do not name keep their default. The jobs are: plan `grill`, `spec`, `split`; build `approach`, `tests`; review `review` (review also takes extra jobs, for example `- compliance: our-sox-check`). stage-it has no `## Use`: its PR template is built in, and a house template replaces it.
 
 A user file can add rules and gates, but never remove or weaken a repo rule or gate. To change a team rule, edit the repo file where the team can see it.
 
@@ -42,7 +44,7 @@ The skills use `gh` (GitHub) by default. For another forge or tracker, describe 
 
 ## What config cannot change
 
-- No skill merges a PR.
+- No skill merges or approves a PR, and only review-it marks one ready.
 - `review-it` never edits code.
 - `build-it` gives new non-trivial logic and bug fixes a test that fails without the change, unless the spec's Out of scope says otherwise.
 - `build-it` and `stage-it` do not hand off while a gate is red.
@@ -81,7 +83,8 @@ The skills use `gh` (GitHub) by default. For another forge or tracker, describe 
 
 ```markdown
 ## Use
-- our-discovery-interview, then our-spec-writer
+- grill: our-discovery-interview
+- spec: our-spec-writer
 
 ## Rules
 - Specs go to Jira project PAY with `jira issue create`; reference them as `PAY-123`.
@@ -105,7 +108,7 @@ The skills use `gh` (GitHub) by default. For another forge or tracker, describe 
 
 ```markdown
 ## Use
-- our-secure-review
+- review: our-secure-review
 
 ## Rules
 - Changes under `payments/` need the SOX checklist in the PR body.

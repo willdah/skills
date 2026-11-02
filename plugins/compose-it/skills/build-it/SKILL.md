@@ -19,7 +19,7 @@ Build the work the user names against its spec, then hand off. Invoking build-it
 
 ## 0. Load config
 
-Read these files if they exist: `docs/sdlc/build.md` in the repo, then `~/.config/sdlc/build.md`. Also read `## Forge` in `docs/sdlc/stage.md` or `~/.config/sdlc/stage.md` (repo first).
+Read these files if they exist: `docs/sdlc/build.md` in the repo, then `~/.config/sdlc/build.md`. Also read `## Forge` from `docs/sdlc/stage.md`, or from `~/.config/sdlc/stage.md` if the repo file has none.
 
 - `## Use`, `## Then`: the repo file wins; else the user file; else the defaults below.
 - `## Rules`, `## Gates`: apply the items from both files. A user file cannot remove or weaken a repo rule or gate.
@@ -29,7 +29,7 @@ Say in one line what you loaded and which skills you will use, for example `conf
 
 For each skill you will use that is not installed, say `<skill> not installed; using built-in guidance` and follow the built-in fallback. Never stop because a skill is missing.
 
-Defaults: approach `ponytail` with args `full`; tests `tdd`; forge `gh`.
+Defaults, by job: **approach** `ponytail` with args `full`; **tests** `tdd`. Forge `gh`. A `## Use` item replaces the default for the job it names (`- tests: our-tdd`); jobs it does not name keep their default.
 
 **Config cannot change:** you never merge a PR; new non-trivial logic and bug fixes get a test that fails without the change (unless the spec's Out of scope excludes tests); you do not hand off while a gate is red.
 
@@ -42,6 +42,8 @@ Defaults: approach `ponytail` with args `full`; tests `tdd`; forge `gh`.
 - An ambiguous reference: ask.
 
 Work only to the acceptance criteria. Do not build what Out of scope excludes.
+
+Record the spec you built against in the first commit on the branch, as a trailer: `Spec: <reference> v<N>` (for example `Spec: #42 v3`). stage-it and review-it read it.
 
 ## 2. Branch
 
@@ -83,4 +85,5 @@ Input is a review on a PR, optionally with `round k of N` from a chained loop.
 3. Fix every **Must fix**. Fix a **Should fix** when the fix stays inside code this PR changes. Skip **Nice to have**.
 4. Commit the fixes (conventional commits), run the gates (step 4), push.
 5. Reply on each finding: `fixed in <sha>` or `skipped: <reason>`.
-6. If `## Then` is set (usually `review-it`), call it with the PR and `round k of N`.
+6. Update the PR body's criteria checklist if the fixes changed it.
+7. Call `review-it` directly with the PR and the same `round k of N`. Do not follow `## Then` here: the loop belongs to review.md, and a skill in between would lose the round.

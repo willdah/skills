@@ -5,6 +5,10 @@ metadata:
   credits:
     owner: "Will (willdah), https://github.com/willdah/skills, MIT"
     adapted:
+      - from: pr
+        author: Matt Pocock
+        source: https://github.com/mattpocock/skills
+        note: the idea of Evidence and Merge danger sections
       - from: show-me
         author: Dex Horthy
         organisation: HumanLayer
@@ -18,17 +22,15 @@ Put a branch up for review as a draft PR that a human can review quickly. Invoki
 
 Read these files if they exist: `docs/sdlc/stage.md` in the repo, then `~/.config/sdlc/stage.md`. Also read the `## Gates` of `build.md` at both levels.
 
-- `## Use`, `## Then`, `## Forge`: the repo file wins; else the user file; else the defaults below.
+- `## Then`, `## Forge`: the repo file wins; else the user file; else the defaults below.
 - `## Rules`, `## Gates`: apply the items from both files. A user file cannot remove or weaken a repo rule or gate.
 - Any other text is context.
 
 Say in one line what you loaded, for example `config: repo docs/sdlc/stage.md, user none · template: .github/pull_request_template.md · forge: gh`. With no files, say once: `no compose-it config; using defaults (run /configure-it to tailor)`.
 
-For each skill in `## Use` that is not installed, say `<skill> not installed; using built-in guidance` and continue. Never stop because a skill is missing.
-
 Defaults: forge `gh`; open as draft; the built-in template below.
 
-**Config cannot change:** you never merge; you do not open or update a PR while a gate is red.
+**Config cannot change:** you never merge; you never mark a PR ready; you do not open or update a PR while a gate is red.
 
 ## 1. Gates
 
@@ -40,7 +42,11 @@ Push the branch and set its upstream.
 
 ## 3. Find the spec
 
-From the branch name, commits or the user's reference (`#N`, URL, path). Read its `Spec version` and acceptance criteria. No spec: use the criteria build-it reported, or ask.
+From the `Spec:` commit trailer build-it wrote, the branch name, or the user's reference (`#N`, URL, path). Read its acceptance criteria.
+
+The version for "Built against spec v<N>" comes from the `Spec:` trailer, not from the spec's current version: if the spec changed after the build, review-it must be able to see that. No trailer: use the current version and say so.
+
+No spec: use the criteria build-it reported. None reported: write 3–5 criteria from the commits, show them, and continue only when the user confirms.
 
 ## 4. Write the body
 
@@ -93,7 +99,7 @@ Tick each criterion against the actual diff, not against intent. Apply every `##
 ## 5. Open or update
 
 - An open PR exists for this branch: update its body (and title if the scope changed). Do not open a second one.
-- Otherwise: open a **draft** PR against the default branch (`gh pr create --draft`, or the `## Forge` equivalent). A `## Rules` item can say to open it ready instead.
+- Otherwise: open a **draft** PR against the default branch (`gh pr create --draft`, or the `## Forge` equivalent). If the forge has no drafts, open it with the forge's work-in-progress marker (for example a `WIP:` title prefix).
 
 Do not mark the PR ready yourself; review-it or a human does that.
 
