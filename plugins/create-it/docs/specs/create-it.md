@@ -1,6 +1,6 @@
-# do-it: an SDLC skill suite you configure for your environment
+# create-it: an SDLC skill suite you configure for your environment
 
-**Spec version:** 6
+**Spec version:** 7
 **Owner:** Will (`willdah`)
 
 ## Problem
@@ -9,9 +9,10 @@ AI coding agents follow whatever skills happen to be installed, with no shared p
 
 ## Acceptance criteria
 
-- [ ] The plugin `do-it` lives in the public GitHub marketplace repo `willdah/skills` under `plugins/do-it/`, and installs with `/plugin marketplace add willdah/skills` then `/plugin install do-it@willdah-skills`.
-- [ ] It ships five skills: `configure-it`, `plan-it`, `build-it`, `stage-it`, `review-it`.
-- [ ] Each skill resolves config from `docs/do-it/<phase>.md` (repo), then `~/.config/do-it/<phase>.md` (user), then built-in defaults, and states what it loaded and which skills it resolved.
+- [ ] The plugin `create-it` lives in the public GitHub marketplace repo `willdah/skills` under `plugins/create-it/`, and installs with `/plugin marketplace add willdah/skills` then `/plugin install create-it@willdah-skills`.
+- [ ] It ships six skills: `create-it` (the driver), `configure-it`, `plan-it`, `build-it`, `stage-it`, `review-it`.
+- [ ] `create-it` (user-invoked only) runs plan-it → build-it → stage-it → review-it in a fixed order, ignoring `## Then`, then runs the review → fix loop itself with N rounds taken from `review.md` (default 1). The user takes part only in the grilling; the run stops early only on a red gate build-it cannot fix or a stale spec, and ends with one summary. Called by create-it, a phase skill chains to nothing and returns its result.
+- [ ] Each skill resolves config from `docs/create-it/<phase>.md` (repo), then `~/.config/create-it/<phase>.md` (user), then built-in defaults, and states what it loaded and which skills it resolved.
 - [ ] Config files use four optional headings: **Use** and **Then** (repo wins over user), **Rules** and **Gates** (both layers apply; user config cannot drop a repo rule or gate). Other text is read as context.
 - [ ] A missing default skill gives a built-in fallback and a one-line notice, never a stop. An existing house template (for example `.github/pull_request_template.md`) beats the built-in default.
 - [ ] `configure-it` (user-invoked only) reads the repo's existing conventions (forge remote, CI, test and lint commands, PR and issue templates, `CONTRIBUTING.md`, `CODEOWNERS`, `CLAUDE.md`/`AGENTS.md`, installed skills), proposes each phase file in turn, writes only what differs from the defaults, and asks repo or user layer.
@@ -19,7 +20,7 @@ AI coding agents follow whatever skills happen to be installed, with no shared p
 - [ ] `build-it` works only against the spec's criteria and out-of-scope list, and records the spec version. New non-trivial logic or a bug fix gets a test that fails without the change; a bug's failing test is committed first. The branch follows Conventional Branch (`<type>/<ticket>-<slug>`) with the same type as the conventional commits. It does not hand off until every gate is green and every criterion is met or marked not met with a reason. It also accepts a review as input and fixes Must fix items and in-scope Should fix items, replying "fixed in `<sha>`" or "skipped: <reason>".
 - [ ] `stage-it` runs gates (stops on red), pushes, and opens a draft PR, or updates the existing PR for the branch. The body follows the house template if one exists, otherwise Summary visual / Evidence / Merge Danger, and adds `Closes #N`, "Built against spec vN" and the criteria checklist checked against the diff.
 - [ ] `review-it` reports only and never edits code: a PR review with inline comments when a PR exists, a terminal report otherwise. It sorts findings as Must fix / Should fix / Nice to have, and repo rule violations are always Must fix. It flags a stale spec version. It is the only skill that marks a PR ready, only with no open Must fix and every criterion ticked, and config can forbid it.
-- [ ] Chaining runs only through **Then** lines, except that `build-it`, after fixing a review, returns to `review-it` directly so the round count is kept. Loop rounds are configurable (default 1) and stop early when there are no Must fix findings or the findings repeat.
+- [ ] Outside `/create-it`, chaining runs only through **Then** lines, except that `build-it`, after fixing a review, returns to `review-it` directly so the round count is kept. Loop rounds are configurable (default 1) and stop early when there are no Must fix findings or the findings repeat.
 - [ ] No skill ever merges a PR, whatever the config says.
 - [ ] Forge commands come from config, with GitHub (`gh`) as the default.
 - [ ] Every skill folder has a `CREDITS.md`, and the plugin root has one. They credit external work only: each leveraged default skill with its owner and source, marked "optional default, not bundled"; and adapted content with its origin. The same credits appear in each `SKILL.md` frontmatter under `metadata.credits`.
@@ -28,16 +29,15 @@ AI coding agents follow whatever skills happen to be installed, with no shared p
 ## Out of scope
 
 - An eval suite or automated tests for the skills.
-- An umbrella "run everything" skill; chaining is config.
 - Bundling or vendoring other people's skills.
 - Merging PRs.
 - Moving the toolkit's authored skills (`create-pr`, `grilling`, `eow-ship-report`) into `willdah/skills`.
-- Migrating the toolkit (closing toolkit PR #9, installing do-it, moving the Forgejo `gh`→`tea` table and worktree rule into `~/.config/do-it/`) is follow-up work in the toolkit repo.
+- Migrating the toolkit (closing toolkit PR #9, installing create-it, moving the Forgejo `gh`→`tea` table and worktree rule into `~/.config/create-it/`) is follow-up work in the toolkit repo.
 
 ## Decisions
 
 - **Config is prose, not YAML.** The reader is a model and enterprise rules are prose. Trade-off: no validation, so each skill states the config and skills it resolved.
-- **Four separate skills plus `configure-it`, with no driver skill.** Each skill runs alone (for example reviewing a colleague's PR). Without a spec reference, a skill drafts 3–5 criteria and asks for confirmation.
+- **Four phase skills, `configure-it`, and a fixed-order driver, `create-it`.** Each phase skill runs alone (for example reviewing a colleague's PR); `/create-it` runs them all with no config, autonomous after the grilling, and owns the fix loop so it does not double up with `## Then` chaining. The driver is user-invoked only because it pushes and opens PRs without asking. Without a spec reference, a skill drafts 3–5 criteria and asks for confirmation.
 - **Repo wins on Use/Then; Rules/Gates add up.** A company rule cannot be dropped by personal config; to change it, edit the repo file where others can see it.
 - **`plan-it` is prescriptive: grill, then spec.** Both steps can be swapped through **Use**; the order is fixed.
 - **Specs version themselves in the issue body.** Trade-off: an edit without a version bump goes unseen; only `plan-it` writes specs.
@@ -45,7 +45,7 @@ AI coding agents follow whatever skills happen to be installed, with no shared p
 - **Draft until `review-it` (or a human, per config) says ready.**
 - **The "failing test for new logic" rule is fixed; the method (`tdd`) is a default.** Opting out is explicit, through the spec's out-of-scope list.
 - **Built for other users from day one:** default skills are soft references with built-in fallbacks.
-- **Housed in one marketplace repo, `willdah/skills`, not a repo per plugin.** One install source for all of Will's plugins and standalone skills; the toolkit keeps only Will's own setup (dotfiles, `~/.config/do-it/*.md`). do-it can move to its own repo later without breaking users, since a marketplace entry can point at another repo.
+- **Housed in one marketplace repo, `willdah/skills`, not a repo per plugin.** One install source for all of Will's plugins and standalone skills; the toolkit keeps only Will's own setup (dotfiles, `~/.config/create-it/*.md`). create-it can move to its own repo later without breaking users, since a marketplace entry can point at another repo.
 - **Shared rules repeat briefly in each `SKILL.md`** so every skill works when loaded alone.
 
 ### Default Use skills (credited, not bundled)
@@ -62,12 +62,12 @@ AI coding agents follow whatever skills happen to be installed, with no shared p
 
 ```text
 skills/                                  # repo: willdah/skills
-├── .claude-plugin/marketplace.json      # lists do-it (and later plugins)
-├── plugins/do-it/
+├── .claude-plugin/marketplace.json      # lists create-it (and later plugins)
+├── plugins/create-it/
 │   ├── .claude-plugin/plugin.json
-│   ├── skills/{configure-it,plan-it,build-it,stage-it,review-it}/{SKILL.md,CREDITS.md}
+│   ├── skills/{create-it,configure-it,plan-it,build-it,stage-it,review-it}/{SKILL.md,CREDITS.md}
 │   ├── docs/config.md
-│   ├── docs/specs/do-it.md
+│   ├── docs/specs/create-it.md
 │   ├── README.md
 │   └── CREDITS.md
 ├── README.md
@@ -76,6 +76,7 @@ skills/                                  # repo: willdah/skills
 
 ## Changelog
 
+- v7 (2026-11-02): renamed the plugin and its config paths to `create-it`, version 0.2.0; added the `create-it` driver skill, replacing the "no driver skill" decision and the umbrella-skill out-of-scope line.
 - v6 (2026-11-02): renamed the plugin and its config paths to `do-it` (`docs/do-it/`, `~/.config/do-it/`), with no fallback to the old paths.
 - v5 (2026-11-02): build-it's review-fix step may call review-it directly; the root `CREDITS.md` is at the plugin root, as in Layout.
 - v4 (2026-11-02): credits list only external skills and their owners, not the plugin's own author.

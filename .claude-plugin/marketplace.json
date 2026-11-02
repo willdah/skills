@@ -5,9 +5,9 @@
   "owner": { "name": "Will (willdah)", "url": "https://github.com/willdah" },
   "plugins": [
     {
-      "name": "do-it",
-      "description": "SDLC skills you configure for your environment: configure-it, plan-it, build-it, stage-it, review-it.",
-      "source": "./plugins/do-it",
+      "name": "create-it",
+      "description": "SDLC skills you configure for your environment: create-it, configure-it, plan-it, build-it, stage-it, review-it.",
+      "source": "./plugins/create-it",
       "category": "development"
     },
     {

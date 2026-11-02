@@ -1,34 +1,35 @@
-# do-it
+# create-it
 
-Five skills that take work from requirement to a reviewed PR, and follow your environment's rules instead of hard-coding which skills to use.
+Six skills that take work from requirement to a reviewed PR, and follow your environment's rules instead of hard-coding which skills to use.
 
 Claude Code:
 
 ```
 /plugin marketplace add willdah/skills
-/plugin install do-it@willdah-skills
+/plugin install create-it@willdah-skills
 ```
 
 GitHub Copilot CLI:
 
 ```
 copilot plugin marketplace add willdah/skills
-copilot plugin install do-it@willdah-skills
+copilot plugin install create-it@willdah-skills
 ```
 
 | Skill | Does |
 | --- | --- |
+| `/create-it` | Runs the whole loop: grills you, then on its own writes the spec, builds it, opens a draft PR, reviews it and runs the fix rounds. You only answer the grilling. |
 | `/configure-it` | Reads your repo (CI, templates, CONTRIBUTING, CODEOWNERS) and drafts the config below. |
 | `/plan-it` | Grills you on the requirements, then writes a versioned spec: problem, acceptance criteria, out of scope, decisions. |
 | `/build-it` | Builds the spec on a Conventional Branch until the criteria are met and the gates pass. Also fixes review findings. |
 | `/stage-it` | Runs the gates, pushes, and opens or updates a draft PR that shows the change and checks the criteria against the diff. |
 | `/review-it` | Reviews against the spec and your rules. Reports only, never edits code. The only skill that marks a PR ready. |
 
-Each skill works alone, for example `/review-it #12` on a colleague's PR. The spec is what they hand to each other: `/build-it #42`.
+Each phase skill also works alone, for example `/review-it #12` on a colleague's PR. The spec is what they hand to each other: `/build-it #42`.
 
 ## Configure
 
-Each phase reads `docs/do-it/<phase>.md` in the repo, then `~/.config/do-it/<phase>.md`, then its defaults. Four optional headings: `## Use` (which skills), `## Rules`, `## Gates`, `## Then` (what to chain into). Your personal rules add to the team's and cannot drop them. See [docs/config.md](docs/config.md) for the rules and a solo and an enterprise example.
+Each phase reads `docs/create-it/<phase>.md` in the repo, then `~/.config/create-it/<phase>.md`, then its defaults. Four optional headings: `## Use` (which skills), `## Rules`, `## Gates`, `## Then` (what to chain into). Your personal rules add to the team's and cannot drop them. See [docs/config.md](docs/config.md) for the rules and a solo and an enterprise example.
 
 ## Defaults
 

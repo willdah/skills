@@ -17,15 +17,17 @@ metadata:
 
 Put a branch up for review as a draft PR that a human can review quickly. Invoking stage-it is approval to push and open or update the PR.
 
+**Called by create-it** (arguments start `called by create-it:`): do this phase, chain to nothing (skip `## Then`), add the assumptions it passes to the PR body, and return the PR link.
+
 ## 0. Load config
 
-Read these files if they exist: `docs/do-it/stage.md` in the repo, then `~/.config/do-it/stage.md`. Also read the `## Gates` of `build.md` at both levels.
+Read these files if they exist: `docs/create-it/stage.md` in the repo, then `~/.config/create-it/stage.md`. Also read the `## Gates` of `build.md` at both levels.
 
 - `## Then`, `## Forge`: the repo file wins; else the user file; else the defaults below.
 - `## Rules`, `## Gates`: apply the items from both files. A user file cannot remove or weaken a repo rule or gate.
 - Any other text is context.
 
-Say in one line what you loaded, for example `config: repo docs/do-it/stage.md, user none · template: .github/pull_request_template.md · forge: gh`. With no files, say once: `no do-it config; using defaults (run /configure-it to tailor)`.
+Say in one line what you loaded, for example `config: repo docs/create-it/stage.md, user none · template: .github/pull_request_template.md · forge: gh`. With no files, say once: `no create-it config; using defaults (run /configure-it to tailor)`.
 
 Defaults: forge `gh`; open as draft; the built-in template below.
 

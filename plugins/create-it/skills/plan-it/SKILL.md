@@ -18,17 +18,19 @@ metadata:
         note: optional default, not bundled
 ---
 
-Turn what the user wants into a spec the other do-it skills can check work against. Always in this order: grill, then write the spec.
+Turn what the user wants into a spec the other create-it skills can check work against. Always in this order: grill, then write the spec.
+
+**Called by create-it** (arguments start `called by create-it:`): do this phase, chain to nothing (skip `## Then`), and return the spec reference.
 
 ## 0. Load config
 
-Read these files if they exist: `docs/do-it/plan.md` in the repo, then `~/.config/do-it/plan.md`. Also read `## Forge` from `docs/do-it/stage.md`, or from `~/.config/do-it/stage.md` if the repo file has none.
+Read these files if they exist: `docs/create-it/plan.md` in the repo, then `~/.config/create-it/plan.md`. Also read `## Forge` from `docs/create-it/stage.md`, or from `~/.config/create-it/stage.md` if the repo file has none.
 
 - `## Use`, `## Then`: the repo file wins; else the user file; else the defaults below.
 - `## Rules`, `## Gates`: apply the items from both files. A user file cannot remove or weaken a repo rule or gate. Gates here are checks the spec must pass before hand-off.
 - Any other text is context.
 
-Say in one line what you loaded and which skills you will use, for example `config: repo docs/do-it/plan.md, user none · using: grill=grilling, spec=to-spec, split=to-tickets`. With no files, say once: `no do-it config; using defaults (run /configure-it to tailor)`.
+Say in one line what you loaded and which skills you will use, for example `config: repo docs/create-it/plan.md, user none · using: grill=grilling, spec=to-spec, split=to-tickets`. With no files, say once: `no create-it config; using defaults (run /configure-it to tailor)`.
 
 For each skill you will use that is not installed, say `<skill> not installed; using built-in guidance` and follow the built-in fallback. Never stop because a skill is missing.
 

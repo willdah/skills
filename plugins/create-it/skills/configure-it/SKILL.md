@@ -1,6 +1,6 @@
 ---
 name: configure-it
-description: "Set up do-it for a repo or for yourself: read the repo's existing conventions (CI, test commands, PR templates, CONTRIBUTING, CODEOWNERS, agent instructions, installed skills) and draft the docs/do-it phase files that plan-it, build-it, stage-it and review-it follow."
+description: "Set up create-it for a repo or for yourself: read the repo's existing conventions (CI, test commands, PR templates, CONTRIBUTING, CODEOWNERS, agent instructions, installed skills) and draft the docs/create-it phase files that plan-it, build-it, stage-it and review-it follow."
 disable-model-invocation: true
 metadata:
   credits:
@@ -11,7 +11,7 @@ metadata:
         note: the explore, propose, confirm, write flow
 ---
 
-Run only when the user asks for configure-it by name; never start it on your own. Draft the do-it config for this environment. You only read the repo and write config files: never commit, push, open PRs or merge. Explore first, propose one phase at a time, write only what the user confirms. The format is in this plugin's `docs/config.md`: four optional headings, `## Use`, `## Rules`, `## Gates`, `## Then`, plus `## Forge` in `stage.md`.
+Run only when the user asks for configure-it by name; never start it on your own. Draft the create-it config for this environment. You only read the repo and write config files: never commit, push, open PRs or merge. Explore first, propose one phase at a time, write only what the user confirms. The format is in this plugin's `docs/config.md`: four optional headings, `## Use`, `## Rules`, `## Gates`, `## Then`, plus `## Forge` in `stage.md`.
 
 ## 1. Explore
 
@@ -22,12 +22,12 @@ Read what exists; do not assume:
 - Gates: CI config (`.github/workflows/`, `.gitlab-ci.yml`, `.forgejo/workflows/`, `.gitea/workflows/`, `Jenkinsfile`), `Makefile`, `package.json` scripts, `pyproject.toml`, `Cargo.toml`, pre-commit hooks. What does CI run on a PR?
 - House templates: PR and issue templates.
 - Rules: `CONTRIBUTING.md`, `CODEOWNERS`, `SECURITY.md`, `CLAUDE.md`, `AGENTS.md`, branch and commit conventions in git history.
-- Existing config: `docs/do-it/*.md` and `~/.config/do-it/*.md`.
+- Existing config: `docs/create-it/*.md` and `~/.config/create-it/*.md`.
 - Installed skills: which of the defaults (`grilling`, `to-spec`, `to-tickets`, `ponytail`, `tdd`, `ponytail-review`) and which alternatives the user has. Propose an alternative as `- <job>: <skill>`, for example `- tests: our-tdd`.
 
 ## 2. Ask where to write
 
-Ask once: **repo** (`docs/do-it/`, shared with the team, committed) or **user** (`~/.config/do-it/`, yours, every repo). Recommend repo when the rules are the team's, user for personal habits.
+Ask once: **repo** (`docs/create-it/`, shared with the team, committed) or **user** (`~/.config/create-it/`, yours, every repo). Recommend repo when the rules are the team's, user for personal habits.
 
 ## 3. Propose each phase
 

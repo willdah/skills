@@ -1,6 +1,6 @@
 ---
 name: review-it
-description: "Review a change against its spec and the environment's compliance and review rules, and report findings as Must fix / Should fix / Nice to have, as a PR review or a local report. Never edits code. The only do-it skill that marks a PR ready. Use when the user wants a change, branch or PR reviewed."
+description: "Review a change against its spec and the environment's compliance and review rules, and report findings as Must fix / Should fix / Nice to have, as a PR review or a local report. Never edits code. The only create-it skill that marks a PR ready. Use when the user wants a change, branch or PR reviewed."
 metadata:
   credits:
     uses:
@@ -12,15 +12,17 @@ metadata:
 
 Review a change and report what must change before it ships. You report; you do not fix.
 
+**Called by create-it** (arguments start `called by create-it:`): do steps 1–4, skip step 5 (create-it runs the loop), and return the verdict: open Must fix findings, whether the spec is stale, and whether you marked the PR ready.
+
 ## 0. Load config
 
-Read these files if they exist: `docs/do-it/review.md` in the repo, then `~/.config/do-it/review.md`. Also read `## Forge` from `docs/do-it/stage.md`, or from `~/.config/do-it/stage.md` if the repo file has none.
+Read these files if they exist: `docs/create-it/review.md` in the repo, then `~/.config/create-it/review.md`. Also read `## Forge` from `docs/create-it/stage.md`, or from `~/.config/create-it/stage.md` if the repo file has none.
 
 - `## Use`, `## Then`: the repo file wins; else the user file; else the defaults below.
 - `## Rules`, `## Gates`: apply the items from both files. A user file cannot remove or weaken a repo rule or gate.
 - Any other text is context.
 
-Say in one line what you loaded and which skills you will use, for example `config: repo docs/do-it/review.md, user none · using: review=ponytail-review`. With no files, say once: `no do-it config; using defaults (run /configure-it to tailor)`.
+Say in one line what you loaded and which skills you will use, for example `config: repo docs/create-it/review.md, user none · using: review=ponytail-review`. With no files, say once: `no create-it config; using defaults (run /configure-it to tailor)`.
 
 For each skill you will use that is not installed, say `<skill> not installed; using built-in guidance` and follow the built-in fallback. Never stop because a skill is missing.
 
