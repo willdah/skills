@@ -1,6 +1,6 @@
 ---
 name: build-it
-description: "Build one spec, ticket or described task on a branch until its acceptance criteria are met and its gates are green, following the repo's and user's do-it config. Also fixes the findings of a review. Use when the user wants to implement, build or fix something, or to address review findings on a PR."
+description: "Build one spec, ticket or described task on a branch until its acceptance criteria are met and its gates are green, following the repo's and user's create-it config. Also fixes the findings of a review. Use when the user wants to implement, build or fix something, or to address review findings on a PR."
 metadata:
   credits:
     uses:
@@ -18,13 +18,13 @@ Build the work the user names against its spec, then hand off. Invoking build-it
 
 ## 0. Load config
 
-Read these files if they exist: `docs/do-it/build.md` in the repo, then `~/.config/do-it/build.md`. Also read `## Forge` from `docs/do-it/stage.md`, or from `~/.config/do-it/stage.md` if the repo file has none.
+Read these files if they exist: `docs/create-it/build.md` in the repo, then `~/.config/create-it/build.md`. Also read `## Forge` from `docs/create-it/stage.md`, or from `~/.config/create-it/stage.md` if the repo file has none.
 
 - `## Use`, `## Then`: the repo file wins; else the user file; else the defaults below.
 - `## Rules`, `## Gates`: apply the items from both files. A user file cannot remove or weaken a repo rule or gate.
 - Any other text is context.
 
-Say in one line what you loaded and which skills you will use, for example `config: repo none, user ~/.config/do-it/build.md · using: coding-guide=ponytail (full), tests=tdd`. With no files, say once: `no do-it config; using defaults (run /configure-it to tailor)`.
+Say in one line what you loaded and which skills you will use, for example `config: repo none, user ~/.config/create-it/build.md · using: coding-guide=ponytail (full), tests=tdd`. With no files, say once: `no create-it config; using defaults (run /configure-it to tailor)`.
 
 For each skill you will use that is not installed, say `<skill> not installed; using built-in guidance` and follow the built-in fallback. Never stop because a skill is missing.
 

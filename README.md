@@ -6,19 +6,19 @@ Claude Code:
 
 ```
 /plugin marketplace add willdah/skills
-/plugin install do-it@willdah-skills
+/plugin install create-it@willdah-skills
 ```
 
 GitHub Copilot CLI:
 
 ```
 copilot plugin marketplace add willdah/skills
-copilot plugin install do-it@willdah-skills
+copilot plugin install create-it@willdah-skills
 ```
 
 | Plugin | What it does |
 | --- | --- |
-| [do-it](plugins/do-it) | SDLC skills (plan, build, stage, review) that follow your environment's config instead of hard-coding which skills to use. |
+| [create-it](plugins/create-it) | SDLC skills (plan, build, stage, review) that follow your environment's config instead of hard-coding which skills to use. |
 
 | Skill | What it does |
 | --- | --- |
