@@ -32,7 +32,7 @@ build-it stops on a red gate it cannot fix: stop the run and go to step 5.
 
 ## 3. Stage
 
-Call `stage-it`: `called by create-it: <branch>, spec <reference>; add these assumptions to the PR body: <list>`. Keep the PR link.
+Call `stage-it`: `called by create-it: <branch>, spec <reference>; add these assumptions to the PR body: <list>`. Keep the PR link. If stage-it stops on a red gate, stop the run and go to step 5.
 
 ## 4. Review and fix
 
