@@ -1,5 +1,5 @@
 {
-  "name": "compose-it",
+  "name": "do-it",
   "version": "0.1.0",
   "description": "SDLC orchestrator skills (configure, plan, build, stage, review) that follow your repo's and your own config instead of hard-coding which skills to use.",
   "author": { "name": "Will (willdah)", "url": "https://github.com/willdah" },

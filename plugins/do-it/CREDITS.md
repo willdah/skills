@@ -1,6 +1,6 @@
 # Credits
 
-compose-it orchestrates other people's skills without bundling them. Each is an optional default that a user can replace through config. Every skill folder has its own `CREDITS.md`.
+do-it orchestrates other people's skills without bundling them. Each is an optional default that a user can replace through config. Every skill folder has its own `CREDITS.md`.
 
 | Skill or idea | Used by | Owner / source |
 | --- | --- | --- |

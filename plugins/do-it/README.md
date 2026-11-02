@@ -1,4 +1,4 @@
-# compose-it
+# do-it
 
 Five skills that take work from requirement to a reviewed PR, and follow your environment's rules instead of hard-coding which skills to use.
 
@@ -6,14 +6,14 @@ Claude Code:
 
 ```
 /plugin marketplace add willdah/skills
-/plugin install compose-it@willdah-skills
+/plugin install do-it@willdah-skills
 ```
 
 GitHub Copilot CLI:
 
 ```
 copilot plugin marketplace add willdah/skills
-copilot plugin install compose-it@willdah-skills
+copilot plugin install do-it@willdah-skills
 ```
 
 | Skill | Does |
@@ -28,7 +28,7 @@ Each skill works alone, for example `/review-it #12` on a colleague's PR. The sp
 
 ## Configure
 
-Each phase reads `docs/compose-it/<phase>.md` in the repo, then `~/.config/compose-it/<phase>.md`, then its defaults. Four optional headings: `## Use` (which skills), `## Rules`, `## Gates`, `## Then` (what to chain into). Your personal rules add to the team's and cannot drop them. See [docs/config.md](docs/config.md) for the rules and a solo and an enterprise example.
+Each phase reads `docs/do-it/<phase>.md` in the repo, then `~/.config/do-it/<phase>.md`, then its defaults. Four optional headings: `## Use` (which skills), `## Rules`, `## Gates`, `## Then` (what to chain into). Your personal rules add to the team's and cannot drop them. See [docs/config.md](docs/config.md) for the rules and a solo and an enterprise example.
 
 ## Defaults
 
