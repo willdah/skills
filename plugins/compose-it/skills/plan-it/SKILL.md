@@ -3,7 +3,6 @@ name: plan-it
 description: "Plan a piece of work: grill the user until requirements are resolved, then write a versioned spec (problem, acceptance criteria, out of scope, decisions) that build-it, stage-it and review-it check against. Use when the user wants to plan, scope, spec or nail down requirements for a feature, fix or change."
 metadata:
   credits:
-    owner: "Will (willdah), https://github.com/willdah/skills, MIT"
     uses:
       - skill: grilling
         author: Matt Pocock

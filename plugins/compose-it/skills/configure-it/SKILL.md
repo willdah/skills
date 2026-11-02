@@ -4,7 +4,6 @@ description: "Set up compose-it for a repo or for yourself: read the repo's exis
 disable-model-invocation: true
 metadata:
   credits:
-    owner: "Will (willdah), https://github.com/willdah/skills, MIT"
     adapted:
       - from: setup-matt-pocock-skills
         author: Matt Pocock

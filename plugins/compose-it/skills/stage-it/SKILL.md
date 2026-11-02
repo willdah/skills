@@ -3,7 +3,6 @@ name: stage-it
 description: "Stage finished work for review: run the gates, push the branch, and open or update a draft PR whose body shows the change visually, gives evidence and merge danger, and checks the spec's acceptance criteria against the diff. Use when the user wants to open, create or update a PR or merge request."
 metadata:
   credits:
-    owner: "Will (willdah), https://github.com/willdah/skills, MIT"
     adapted:
       - from: pr
         author: Matt Pocock

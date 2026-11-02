@@ -1,7 +1,5 @@
 # Credits
 
-**Owner:** Will ([willdah](https://github.com/willdah)), part of [compose-it](https://github.com/willdah/skills/tree/main/plugins/compose-it) in [willdah/skills](https://github.com/willdah/skills). MIT licensed.
-
 compose-it orchestrates other people's skills without bundling them. Each is an optional default that a user can replace through config. Every skill folder has its own `CREDITS.md`.
 
 | Skill or idea | Used by | Owner / source |

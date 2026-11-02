@@ -3,7 +3,6 @@ name: build-it
 description: "Build one spec, ticket or described task on a branch until its acceptance criteria are met and its gates are green, following the repo's and user's compose-it config. Also fixes the findings of a review. Use when the user wants to implement, build or fix something, or to address review findings on a PR."
 metadata:
   credits:
-    owner: "Will (willdah), https://github.com/willdah/skills, MIT"
     uses:
       - skill: ponytail
         author: Dietrich Gebert

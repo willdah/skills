@@ -3,7 +3,6 @@ name: review-it
 description: "Review a change against its spec and the environment's compliance and review rules, and report findings as Must fix / Should fix / Nice to have, as a PR review or a local report. Never edits code. The only compose-it skill that marks a PR ready. Use when the user wants a change, branch or PR reviewed."
 metadata:
   credits:
-    owner: "Will (willdah), https://github.com/willdah/skills, MIT"
     uses:
       - skill: ponytail-review
         author: Dietrich Gebert

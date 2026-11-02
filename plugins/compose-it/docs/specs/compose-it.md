@@ -1,6 +1,6 @@
 # compose-it: an SDLC skill suite you configure for your environment
 
-**Spec version:** 3
+**Spec version:** 4
 **Owner:** Will (`willdah`)
 
 ## Problem
@@ -22,7 +22,7 @@ AI coding agents follow whatever skills happen to be installed, with no shared p
 - [ ] Chaining runs only through **Then** lines. Loop rounds are configurable (default 1) and stop early when there are no Must fix findings or the findings repeat.
 - [ ] No skill ever merges a PR, whatever the config says.
 - [ ] Forge commands come from config, with GitHub (`gh`) as the default.
-- [ ] Every skill folder has a `CREDITS.md`, and the repo root has one: the owner (Will, `willdah`), the repo and the license; each leveraged default skill with its owner and source, marked "optional default, not bundled"; and adapted content with its origin. The same credits appear in each `SKILL.md` frontmatter under `metadata.credits`.
+- [ ] Every skill folder has a `CREDITS.md`, and the repo root has one. They credit external work only: each leveraged default skill with its owner and source, marked "optional default, not bundled"; and adapted content with its origin. The same credits appear in each `SKILL.md` frontmatter under `metadata.credits`.
 - [ ] `docs/config.md` documents the headings and layering, with a solo example and an enterprise example. The license is MIT.
 
 ## Out of scope
@@ -76,6 +76,7 @@ skills/                                  # repo: willdah/skills
 
 ## Changelog
 
+- v4 (2026-11-02): credits list only external skills and their owners, not the plugin's own author.
 - v3 (2026-11-02): config paths renamed to `docs/compose-it/<phase>.md` and `~/.config/compose-it/<phase>.md`, after the plugin.
 - v2 (2026-11-02): housed in the `willdah/skills` marketplace repo under `plugins/compose-it/`, not its own repo.
 - v1 (2026-11-02): first version, from the grilling session.
