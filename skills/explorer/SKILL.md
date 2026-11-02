@@ -49,8 +49,9 @@ Once layers 1–4 are done:
    2. REST with a token from an env var or credential file the user names, by reference only (rule 7), for example `curl -sf -H "PRIVATE-TOKEN: $GITLAB_TOKEN" https://gitlab.corp.example/api/v4/... | jq ...`. A file whose token you cannot extract without looking at it is skipped.
    3. Unauthenticated `GET`s, for public orgs only; keep the request count small (rate limits).
    4. None works: skip the host and record a gap with the reason ("`gitlab.corp.example` in 12 clones; `glab` not logged in and no token named").
-4. **Select repos, per org:** the top 10 by most recent push and the top 10 by stars or forks (whatever popularity the provider has), de-duplicated; skip forks, archived repos and repos already cloned locally (matched by remote URL). Cap at 20 per org (`--remote=N`) and 100 in total; record any cut in the header.
+4. **Select repos, per org:** the top 10 by most recent push and the top 10 by stars or forks (whatever popularity the provider has), de-duplicated; skip forks, archived repos and repos already cloned locally (matched by remote URL; step 6 covers those). Cap at 20 per org (`--remote=N`) and 100 in total; record any cut in the header.
 5. **Read, without cloning:** through the contents API, the layer-3 file set plus the layer-2 conventions files: CI files (`.github/workflows/*`, `.gitlab-ci.yml`, `.forgejo/workflows/*`, `Jenkinsfile`, `azure-pipelines.yml`), build and registry config (with rule 3's filters), Dockerfiles, Terraform backends, `CODEOWNERS`, PR and issue templates, Renovate/Dependabot, scanner config, `CLAUDE.md`/`AGENTS.md`. Through the API: default branch, allowed merge methods, branch protection and required checks, topics and language, the last 20 commit subjects and the last 10 merged PR titles. On a 403 or 404 record "not visible with this login" and move on. Count first, as in layer 3; open full files only from two or three representative repos per pattern.
+6. **Local clones, metadata only:** for clones whose remote is in a confirmed org, always including the current repo, fetch only the API settings: default branch, allowed merge methods, branch protection and required checks, and topics. No file reads and no commit subjects (layer 3 has them). Take up to 50 clones, picked by most recent local commit; this cap is separate from step 4's. Record any cut in the header.
 
 ## 2. Identify the patterns
 
@@ -94,7 +95,7 @@ Agents read the map every session, so keep the body short: about 150 lines outsi
 ```markdown
 # ENV_MAP
 
-Last run: 2026-11-02 · layers: machine, repo, 45 clones (cap 200) · history: no · remote: git.corp.example/payments (20), github.com/acme (20) · auth: tea, gh
+Last run: 2026-11-02 · layers: machine, repo, 45 clones (cap 200) · history: no · remote: git.corp.example/payments (20), github.com/acme (20), 38 local clones (metadata, cap 50) · auth: tea, gh
 
 Confirmed entries are rules; inferred entries are hints to check.
 
@@ -130,7 +131,7 @@ Confirmed entries are rules; inferred entries are hints to check.
 - Update the header: run date, layers scanned, whether history and the remote layer were used.
 - With a category argument, rescan and review only that section; leave the rest untouched. With `--remote` too, refresh only that section's remote evidence.
 
-**Repo map:** when you run inside a repo and find facts specific to it or different from the user map (it deploys with ArgoCD to `payments-prod`, publishes to Nexus repo `payments-releases`, uses Jira project `PAY`), offer `docs/ENV_MAP.md` with only those patterns, in the same format. The repo map wins over the user map where they conflict. It is committed and shared, so it must hold no usernames, personal account or profile names, home paths, or anything from the shell-history, other-clones or remote layers: generalize them (`--profile <your payments profile>`).
+**Repo map:** when you run inside a repo and find facts specific to it or different from the user map (it deploys with ArgoCD to `payments-prod`, publishes to Nexus repo `payments-releases`, uses Jira project `PAY`), offer `docs/ENV_MAP.md` with only those patterns, in the same format. The repo map wins over the user map where they conflict. It is committed and shared, so it must hold no usernames, personal account or profile names, home paths, or anything from the shell-history, other-clones or remote layers (except the current repo's own default branch, merge methods, branch protection and required checks, with no usernames): generalize them (`--profile <your payments profile>`).
 
 **Never commit or push.** Tell the user a repo map should go through their normal review.
 
