@@ -19,13 +19,13 @@ Put a branch up for review as a draft PR that a human can review quickly. Invoki
 
 ## 0. Load config
 
-Read these files if they exist: `docs/compose-it/stage.md` in the repo, then `~/.config/compose-it/stage.md`. Also read the `## Gates` of `build.md` at both levels.
+Read these files if they exist: `docs/do-it/stage.md` in the repo, then `~/.config/do-it/stage.md`. Also read the `## Gates` of `build.md` at both levels.
 
 - `## Then`, `## Forge`: the repo file wins; else the user file; else the defaults below.
 - `## Rules`, `## Gates`: apply the items from both files. A user file cannot remove or weaken a repo rule or gate.
 - Any other text is context.
 
-Say in one line what you loaded, for example `config: repo docs/compose-it/stage.md, user none · template: .github/pull_request_template.md · forge: gh`. With no files, say once: `no compose-it config; using defaults (run /configure-it to tailor)`.
+Say in one line what you loaded, for example `config: repo docs/do-it/stage.md, user none · template: .github/pull_request_template.md · forge: gh`. With no files, say once: `no do-it config; using defaults (run /configure-it to tailor)`.
 
 Defaults: forge `gh`; open as draft; the built-in template below.
 

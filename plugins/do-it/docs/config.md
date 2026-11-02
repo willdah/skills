@@ -1,6 +1,6 @@
-# Configuring compose-it
+# Configuring do-it
 
-Each compose-it skill reads a short markdown file for its phase. Run `/configure-it` to draft them from your repo, or write them by hand.
+Each do-it skill reads a short markdown file for its phase. Run `/configure-it` to draft them from your repo, or write them by hand.
 
 | Phase | Skill | File |
 | --- | --- | --- |
@@ -11,8 +11,8 @@ Each compose-it skill reads a short markdown file for its phase. Run `/configure
 
 ## Where the files live
 
-1. **Repo:** `docs/compose-it/<phase>.md`, committed, shared by the team.
-2. **User:** `~/.config/compose-it/<phase>.md`, your own defaults for every repo.
+1. **Repo:** `docs/do-it/<phase>.md`, committed, shared by the team.
+2. **User:** `~/.config/do-it/<phase>.md`, your own defaults for every repo.
 3. **Built-in:** each skill's defaults, used for anything neither file sets.
 
 Every file is optional. With none, the skills use their defaults and say so once.
@@ -51,7 +51,7 @@ The skills use `gh` (GitHub) by default. For another forge or tracker, describe 
 
 ## Example: solo developer
 
-`~/.config/compose-it/build.md`
+`~/.config/do-it/build.md`
 
 ```markdown
 ## Rules
@@ -61,25 +61,25 @@ The skills use `gh` (GitHub) by default. For another forge or tracker, describe 
 - stage-it
 ```
 
-`~/.config/compose-it/stage.md`
+`~/.config/do-it/stage.md`
 
 ```markdown
 ## Then
 - review-it
 ```
 
-`~/.config/compose-it/review.md`
+`~/.config/do-it/review.md`
 
 ```markdown
 ## Then
 - build-it, up to 2 rounds
 ```
 
-`~/.config/compose-it/stage.md` can also carry a `## Forge` section, for example a table that maps `gh` commands to `tea` for a Forgejo server.
+`~/.config/do-it/stage.md` can also carry a `## Forge` section, for example a table that maps `gh` commands to `tea` for a Forgejo server.
 
 ## Example: enterprise team
 
-`docs/compose-it/plan.md`
+`docs/do-it/plan.md`
 
 ```markdown
 ## Use
@@ -91,7 +91,7 @@ The skills use `gh` (GitHub) by default. For another forge or tracker, describe 
 - Every spec names a data-classification level.
 ```
 
-`docs/compose-it/build.md`
+`docs/do-it/build.md`
 
 ```markdown
 ## Rules
@@ -104,7 +104,7 @@ The skills use `gh` (GitHub) by default. For another forge or tracker, describe 
 - `make sast`
 ```
 
-`docs/compose-it/review.md`
+`docs/do-it/review.md`
 
 ```markdown
 ## Use
@@ -115,4 +115,4 @@ The skills use `gh` (GitHub) by default. For another forge or tracker, describe 
 - A human marks PRs ready; review-it never does.
 ```
 
-A developer's personal `~/.config/compose-it/build.md` still applies on top: their rules and gates are added; the team's stay.
+A developer's personal `~/.config/do-it/build.md` still applies on top: their rules and gates are added; the team's stay.
