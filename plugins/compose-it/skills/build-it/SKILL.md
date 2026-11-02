@@ -28,7 +28,7 @@ Say in one line what you loaded and which skills you will use, for example `conf
 
 For each skill you will use that is not installed, say `<skill> not installed; using built-in guidance` and follow the built-in fallback. Never stop because a skill is missing.
 
-Defaults, by job: **approach** `ponytail` with args `full`; **tests** `tdd`. Forge `gh`. A `## Use` item replaces the default for the job it names (`- tests: our-tdd`); jobs it does not name keep their default.
+Defaults, by job: **coding-guide** `ponytail` with args `full`; **tests** `tdd`. Forge `gh`. A `## Use` item replaces the default for the job it names (`- tests: our-tdd`); jobs it does not name keep their default.
 
 **Config cannot change:** you never merge a PR; new non-trivial logic and bug fixes get a test that fails without the change (unless the spec's Out of scope excludes tests); you do not hand off while a gate is red.
 
@@ -55,7 +55,7 @@ Take the change type from the spec once: `feat`, `fix`, `chore`, `docs`, `refact
 
 ## 3. Build
 
-Call the approach skill. Fallback: make the smallest change that fully meets the criteria; reuse what the codebase has; add no options, abstractions or features nobody asked for; finish every caller, test and fixture the change touches.
+Call the coding-guide skill. Fallback: make the smallest change that fully meets the criteria; reuse what the codebase has; add no options, abstractions or features nobody asked for; finish every caller, test and fixture the change touches.
 
 Tests: for new non-trivial logic (a branch, loop, parser, money, security, a new script), call the test skill. Fallback: write one failing test, make it pass, then refactor. For a bug fix, commit the failing test that reproduces the bug before the fix. Config, wiring, docs and renames need no test.
 
