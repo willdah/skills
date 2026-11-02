@@ -22,7 +22,7 @@ copilot plugin install compose-it@willdah-skills
 
 | Skill | What it does |
 | --- | --- |
-| [explorer](skills/explorer/SKILL.md) | Maps your SDLC environment (forge, tracker, registries, cloud auth, conventions, gates) into `ENV_MAP.md` for you and your agents, without recording secrets. Run `/explorer`, `/explorer <category>` to rescan one section, or `/explorer --history` to include shell history. |
+| [explorer](skills/explorer/SKILL.md) | Maps your SDLC environment (forge, tracker, registries, cloud auth, conventions, gates) into `ENV_MAP.md` for you and your agents, without recording secrets. Run `/explorer`, `/explorer <category>` to rescan one section, `/explorer --history` to include shell history, or `/explorer --remote` to also search your orgs on GitHub, GitLab, Forgejo and other VCS providers (read-only, opt-in). |
 
 Install a skill as a plugin (`/plugin install explorer@willdah-skills`, `copilot plugin install explorer@willdah-skills`), with `npx skills add willdah/skills`, or by copying its folder into `~/.claude/skills/`.
 
