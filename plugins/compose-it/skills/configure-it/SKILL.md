@@ -23,7 +23,7 @@ Read what exists; do not assume:
 - House templates: PR and issue templates.
 - Rules: `CONTRIBUTING.md`, `CODEOWNERS`, `SECURITY.md`, `CLAUDE.md`, `AGENTS.md`, branch and commit conventions in git history.
 - Existing config: `docs/compose-it/*.md` and `~/.config/compose-it/*.md`.
-- Installed skills: which of the defaults (`grilling`, `to-spec`, `to-tickets`, `ponytail`, `tdd`, `ponytail-review`) and which alternatives the user has. Propose an alternative as `- <job>: <skill>`, for example `- tests: our-tdd`.
+- Installed skills: which of the defaults (`grilling`, `to-spec`, `to-tickets`, `ponytail:ponytail`, `tdd`, `ponytail:ponytail-review`) and which alternatives the user has. Propose an alternative as `- <job>: <skill>`, for example `- tests: our-tdd`.
 
 ## 2. Ask where to write
 

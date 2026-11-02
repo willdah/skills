@@ -28,7 +28,7 @@ All four are optional. Write them as plain markdown lists.
 | `## Gates` | Checks that must pass before the phase is done (commands preferred) | Both apply |
 | `## Then` | The skill to chain into when this phase is done | Repo wins |
 
-Write each `## Use` item as `- <job>: <skill>`, for example `- tests: our-tdd`. It replaces the default for that job; jobs you do not name keep their default. The jobs are: plan `grill`, `spec`, `split`; build `coding-guide`, `tests`; review `review` (review also takes extra jobs, for example `- compliance: our-sox-check`). stage-it has no `## Use`: its PR template is built in, and a house template replaces it.
+Write each `## Use` item as `- <job>: <skill>`, for example `- tests: our-tdd`. Use the skill's installed name; plugin skills need their prefix (`- review: acme-tools:secure-review`). It replaces the default for that job; jobs you do not name keep their default. The jobs are: plan `grill`, `spec`, `split`; build `coding-guide`, `tests`; review `review` (review also takes extra jobs, for example `- compliance: our-sox-check`). stage-it has no `## Use`: its PR template is built in, and a house template replaces it.
 
 A user file can add rules and gates, but never remove or weaken a repo rule or gate. To change a team rule, edit the repo file where the team can see it.
 

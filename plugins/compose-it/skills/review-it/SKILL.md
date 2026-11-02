@@ -20,11 +20,13 @@ Read these files if they exist: `docs/compose-it/review.md` in the repo, then `~
 - `## Rules`, `## Gates`: apply the items from both files. A user file cannot remove or weaken a repo rule or gate.
 - Any other text is context.
 
-Say in one line what you loaded and which skills you will use, for example `config: repo docs/compose-it/review.md, user none · using: ponytail-review`. With no files, say once: `no compose-it config; using defaults (run /configure-it to tailor)`.
+Say in one line what you loaded and which skills you will use, for example `config: repo docs/compose-it/review.md, user none · using: review=ponytail:ponytail-review`. With no files, say once: `no compose-it config; using defaults (run /configure-it to tailor)`.
 
 For each skill you will use that is not installed, say `<skill> not installed; using built-in guidance` and follow the built-in fallback. Never stop because a skill is missing.
 
-Default, by job: **review** `ponytail-review`. Forge `gh`. A `## Use` item replaces the default for the job it names (`- review: our-secure-review`); a team review skill can also be added as a second job (`- compliance: our-sox-check`).
+To call a skill, use the Skill tool with the name the available-skills list shows for it. Plugin skills carry their plugin's prefix, for example `ponytail:ponytail` or `compose-it:review-it`. A job name such as **tests** is a slot, not a skill: call the skill you resolved for it.
+
+Default, by job: **review** `ponytail:ponytail-review`. Forge `gh`. A `## Use` item replaces the default for the job it names (`- review: our-secure-review`); a team review skill can also be added as a second job (`- compliance: our-sox-check`).
 
 **Config cannot change:** you never edit code, commit or push; you never approve or merge.
 
@@ -38,7 +40,7 @@ No spec: write 3–5 acceptance criteria from the PR description and commits, sh
 
 ## 2. Review
 
-Call the review skill on the diff. Fallback: read the diff and the code it touches (callers, tests); look for, in order, bugs and broken callers, security holes and data loss, what breaks at the repo's expected load, risky logic with no test, real slowness, and code that should not exist. Every finding needs a concrete case that goes wrong.
+Call the Skill tool with the skill you resolved for **review** in step 0 (default `ponytail:ponytail-review`) on the diff, then the skill for each extra job (for example **compliance**). Fallback for **review**: read the diff and the code it touches (callers, tests); look for, in order, bugs and broken callers, security holes and data loss, what breaks at the repo's expected load, risky logic with no test, real slowness, and code that should not exist. Every finding needs a concrete case that goes wrong.
 
 Then check, yourself:
 

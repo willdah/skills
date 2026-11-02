@@ -24,11 +24,13 @@ Read these files if they exist: `docs/compose-it/build.md` in the repo, then `~/
 - `## Rules`, `## Gates`: apply the items from both files. A user file cannot remove or weaken a repo rule or gate.
 - Any other text is context.
 
-Say in one line what you loaded and which skills you will use, for example `config: repo none, user ~/.config/compose-it/build.md · using: ponytail (full), tdd`. With no files, say once: `no compose-it config; using defaults (run /configure-it to tailor)`.
+Say in one line what you loaded and which skills you will use, for example `config: repo none, user ~/.config/compose-it/build.md · using: coding-guide=ponytail:ponytail (full), tests=tdd`. With no files, say once: `no compose-it config; using defaults (run /configure-it to tailor)`.
 
 For each skill you will use that is not installed, say `<skill> not installed; using built-in guidance` and follow the built-in fallback. Never stop because a skill is missing.
 
-Defaults, by job: **coding-guide** `ponytail` with args `full`; **tests** `tdd`. Forge `gh`. A `## Use` item replaces the default for the job it names (`- tests: our-tdd`); jobs it does not name keep their default.
+To call a skill, use the Skill tool with the name the available-skills list shows for it. Plugin skills carry their plugin's prefix, for example `ponytail:ponytail` or `compose-it:review-it`. A job name such as **tests** is a slot, not a skill: call the skill you resolved for it.
+
+Defaults, by job: **coding-guide** `ponytail:ponytail` with args `full`; **tests** `tdd`. Forge `gh`. A `## Use` item replaces the default for the job it names (`- tests: our-tdd`); jobs it does not name keep their default.
 
 **Config cannot change:** you never merge a PR; new non-trivial logic and bug fixes get a test that fails without the change (unless the spec's Out of scope excludes tests); you do not hand off while a gate is red.
 
@@ -55,9 +57,9 @@ Take the change type from the spec once: `feat`, `fix`, `chore`, `docs`, `refact
 
 ## 3. Build
 
-Call the coding-guide skill. Fallback: make the smallest change that fully meets the criteria; reuse what the codebase has; add no options, abstractions or features nobody asked for; finish every caller, test and fixture the change touches.
+Call the Skill tool with the skill you resolved for **coding-guide** in step 0 (default `ponytail:ponytail`, args `full`). Fallback: make the smallest change that fully meets the criteria; reuse what the codebase has; add no options, abstractions or features nobody asked for; finish every caller, test and fixture the change touches.
 
-Tests: for new non-trivial logic (a branch, loop, parser, money, security, a new script), call the test skill. Fallback: write one failing test, make it pass, then refactor. For a bug fix, commit the failing test that reproduces the bug before the fix. Config, wiring, docs and renames need no test.
+Tests: for new non-trivial logic (a branch, loop, parser, money, security, a new script), call the Skill tool with the skill you resolved for **tests** in step 0 (default `tdd`). Fallback: write one failing test, make it pass, then refactor. For a bug fix, commit the failing test that reproduces the bug before the fix. Config, wiring, docs and renames need no test.
 
 Apply every `## Rules` item. Run typechecking and single test files as you go.
 
@@ -85,4 +87,4 @@ Input is a review on a PR, optionally with `round k of N` from a chained loop.
 4. Commit the fixes (conventional commits), run the gates (step 4), push.
 5. Reply on each finding: `fixed in <sha>` or `skipped: <reason>`.
 6. Update the PR body's criteria checklist if the fixes changed it.
-7. Call `review-it` directly with the PR and the same `round k of N`. Do not follow `## Then` here: the loop belongs to review.md, and a skill in between would lose the round.
+7. Call `compose-it:review-it` directly with the Skill tool, with the PR and the same `round k of N`. Do not follow `## Then` here: the loop belongs to review.md, and a skill in between would lose the round.

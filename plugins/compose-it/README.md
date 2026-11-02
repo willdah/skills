@@ -26,9 +26,9 @@ Each phase reads `docs/compose-it/<phase>.md` in the repo, then `~/.config/compo
 | Phase | Default skill | Without it |
 | --- | --- | --- |
 | plan | `grilling`, `to-spec`, `to-tickets` | built-in interview and spec format |
-| build | `ponytail` (full), `tdd` | built-in smallest-change and test-first guidance |
+| build | `ponytail:ponytail` (full), `tdd` | built-in smallest-change and test-first guidance |
 | stage | none | built-in PR template |
-| review | `ponytail-review` | built-in review checklist |
+| review | `ponytail:ponytail-review` | built-in review checklist |
 
 None are bundled. Install the ones you want; see [CREDITS.md](CREDITS.md) for their owners.
 
