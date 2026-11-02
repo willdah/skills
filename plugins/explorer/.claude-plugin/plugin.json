@@ -1,0 +1,1 @@
+{"name":"explorer","version":"0.1.0","description":"Map your SDLC environment (forge, tracker, CI/CD, registries, cloud auth, conventions, gates) into ENV_MAP.md for you and your agents, without recording secrets.","author":{"name":"Will (willdah)","url":"https://github.com/willdah"},"repository":"https://github.com/willdah/skills","license":"MIT"}
