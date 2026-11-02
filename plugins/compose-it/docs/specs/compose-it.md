@@ -1,6 +1,6 @@
 # compose-it: an SDLC skill suite you configure for your environment
 
-**Spec version:** 1
+**Spec version:** 2
 **Owner:** Will (`willdah`)
 
 ## Problem
@@ -9,7 +9,7 @@ AI coding agents follow whatever skills happen to be installed, with no shared p
 
 ## Acceptance criteria
 
-- [ ] The plugin `compose-it` installs from the public GitHub repo `willdah/compose-it` with `/plugin marketplace add willdah/compose-it`.
+- [ ] The plugin `compose-it` lives in the public GitHub marketplace repo `willdah/skills` under `plugins/compose-it/`, and installs with `/plugin marketplace add willdah/skills` then `/plugin install compose-it@willdah-skills`.
 - [ ] It ships five skills: `configure-it`, `plan-it`, `build-it`, `stage-it`, `review-it`.
 - [ ] Each skill resolves config from `docs/sdlc/<phase>.md` (repo), then `~/.config/sdlc/<phase>.md` (user), then built-in defaults, and states what it loaded and which skills it resolved.
 - [ ] Config files use four optional headings: **Use** and **Then** (repo wins over user), **Rules** and **Gates** (both layers apply; user config cannot drop a repo rule or gate). Other text is read as context.
@@ -31,6 +31,7 @@ AI coding agents follow whatever skills happen to be installed, with no shared p
 - An umbrella "run everything" skill; chaining is config.
 - Bundling or vendoring other people's skills.
 - Merging PRs.
+- Moving the toolkit's authored skills (`create-pr`, `grilling`, `eow-ship-report`) into `willdah/skills`.
 - Migrating the toolkit (closing toolkit PR #9, installing compose-it, moving the Forgejo `gh`→`tea` table and worktree rule into `~/.config/sdlc/`) is follow-up work in the toolkit repo.
 
 ## Decisions
@@ -43,7 +44,8 @@ AI coding agents follow whatever skills happen to be installed, with no shared p
 - **Review reports and build fixes.** Safe default for enterprises where the author's agent must not silently fix and approve its own work.
 - **Draft until `review-it` (or a human, per config) says ready.**
 - **The "failing test for new logic" rule is fixed; the method (`tdd`) is a default.** Opting out is explicit, through the spec's out-of-scope list.
-- **Built for other users from day one:** public GitHub repo with its own marketplace; default skills are soft references with built-in fallbacks.
+- **Built for other users from day one:** default skills are soft references with built-in fallbacks.
+- **Housed in one marketplace repo, `willdah/skills`, not a repo per plugin.** One install source for all of Will's plugins and standalone skills; the toolkit keeps only Will's own setup (dotfiles, `~/.config/sdlc/*.md`). compose-it can move to its own repo later without breaking users, since a marketplace entry can point at another repo.
 - **Shared rules repeat briefly in each `SKILL.md`** so every skill works when loaded alone.
 
 ### Default Use skills (credited, not bundled)
@@ -59,16 +61,20 @@ AI coding agents follow whatever skills happen to be installed, with no shared p
 ## Layout
 
 ```text
-compose-it/
-├── .claude-plugin/{plugin.json,marketplace.json}
-├── skills/{configure-it,plan-it,build-it,stage-it,review-it}/{SKILL.md,CREDITS.md}
-├── docs/config.md
-├── docs/specs/compose-it.md
+skills/                                  # repo: willdah/skills
+├── .claude-plugin/marketplace.json      # lists compose-it (and later plugins)
+├── plugins/compose-it/
+│   ├── .claude-plugin/plugin.json
+│   ├── skills/{configure-it,plan-it,build-it,stage-it,review-it}/{SKILL.md,CREDITS.md}
+│   ├── docs/config.md
+│   ├── docs/specs/compose-it.md
+│   ├── README.md
+│   └── CREDITS.md
 ├── README.md
-├── CREDITS.md
-└── LICENSE
+└── LICENSE                              # MIT
 ```
 
 ## Changelog
 
+- v2 (2026-11-02): housed in the `willdah/skills` marketplace repo under `plugins/compose-it/`, not its own repo.
 - v1 (2026-11-02): first version, from the grilling session.
