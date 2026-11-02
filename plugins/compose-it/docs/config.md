@@ -11,8 +11,8 @@ Each compose-it skill reads a short markdown file for its phase. Run `/configure
 
 ## Where the files live
 
-1. **Repo:** `docs/sdlc/<phase>.md`, committed, shared by the team.
-2. **User:** `~/.config/sdlc/<phase>.md`, your own defaults for every repo.
+1. **Repo:** `docs/compose-it/<phase>.md`, committed, shared by the team.
+2. **User:** `~/.config/compose-it/<phase>.md`, your own defaults for every repo.
 3. **Built-in:** each skill's defaults, used for anything neither file sets.
 
 Every file is optional. With none, the skills use their defaults and say so once.
@@ -51,7 +51,7 @@ The skills use `gh` (GitHub) by default. For another forge or tracker, describe 
 
 ## Example: solo developer
 
-`~/.config/sdlc/build.md`
+`~/.config/compose-it/build.md`
 
 ```markdown
 ## Rules
@@ -61,25 +61,25 @@ The skills use `gh` (GitHub) by default. For another forge or tracker, describe 
 - stage-it
 ```
 
-`~/.config/sdlc/stage.md`
+`~/.config/compose-it/stage.md`
 
 ```markdown
 ## Then
 - review-it
 ```
 
-`~/.config/sdlc/review.md`
+`~/.config/compose-it/review.md`
 
 ```markdown
 ## Then
 - build-it, up to 2 rounds
 ```
 
-`~/.config/sdlc/stage.md` can also carry a `## Forge` section, for example a table that maps `gh` commands to `tea` for a Forgejo server.
+`~/.config/compose-it/stage.md` can also carry a `## Forge` section, for example a table that maps `gh` commands to `tea` for a Forgejo server.
 
 ## Example: enterprise team
 
-`docs/sdlc/plan.md`
+`docs/compose-it/plan.md`
 
 ```markdown
 ## Use
@@ -91,7 +91,7 @@ The skills use `gh` (GitHub) by default. For another forge or tracker, describe 
 - Every spec names a data-classification level.
 ```
 
-`docs/sdlc/build.md`
+`docs/compose-it/build.md`
 
 ```markdown
 ## Rules
@@ -104,7 +104,7 @@ The skills use `gh` (GitHub) by default. For another forge or tracker, describe 
 - `make sast`
 ```
 
-`docs/sdlc/review.md`
+`docs/compose-it/review.md`
 
 ```markdown
 ## Use
@@ -115,4 +115,4 @@ The skills use `gh` (GitHub) by default. For another forge or tracker, describe 
 - A human marks PRs ready; review-it never does.
 ```
 
-A developer's personal `~/.config/sdlc/build.md` still applies on top: their rules and gates are added; the team's stay.
+A developer's personal `~/.config/compose-it/build.md` still applies on top: their rules and gates are added; the team's stay.

@@ -23,13 +23,13 @@ Turn what the user wants into a spec the other compose-it skills can check work 
 
 ## 0. Load config
 
-Read these files if they exist: `docs/sdlc/plan.md` in the repo, then `~/.config/sdlc/plan.md`. Also read `## Forge` from `docs/sdlc/stage.md`, or from `~/.config/sdlc/stage.md` if the repo file has none.
+Read these files if they exist: `docs/compose-it/plan.md` in the repo, then `~/.config/compose-it/plan.md`. Also read `## Forge` from `docs/compose-it/stage.md`, or from `~/.config/compose-it/stage.md` if the repo file has none.
 
 - `## Use`, `## Then`: the repo file wins; else the user file; else the defaults below.
 - `## Rules`, `## Gates`: apply the items from both files. A user file cannot remove or weaken a repo rule or gate. Gates here are checks the spec must pass before hand-off.
 - Any other text is context.
 
-Say in one line what you loaded and which skills you will use, for example `config: repo docs/sdlc/plan.md, user none · using: grilling, to-spec`. With no files, say once: `no compose-it config; using defaults (run /configure-it to tailor)`.
+Say in one line what you loaded and which skills you will use, for example `config: repo docs/compose-it/plan.md, user none · using: grilling, to-spec`. With no files, say once: `no compose-it config; using defaults (run /configure-it to tailor)`.
 
 For each skill you will use that is not installed, say `<skill> not installed; using built-in guidance` and follow the built-in fallback. Never stop because a skill is missing.
 

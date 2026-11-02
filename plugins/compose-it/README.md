@@ -19,7 +19,7 @@ Each skill works alone, for example `/review-it #12` on a colleague's PR. The sp
 
 ## Configure
 
-Each phase reads `docs/sdlc/<phase>.md` in the repo, then `~/.config/sdlc/<phase>.md`, then its defaults. Four optional headings: `## Use` (which skills), `## Rules`, `## Gates`, `## Then` (what to chain into). Your personal rules add to the team's and cannot drop them. See [docs/config.md](docs/config.md) for the rules and a solo and an enterprise example.
+Each phase reads `docs/compose-it/<phase>.md` in the repo, then `~/.config/compose-it/<phase>.md`, then its defaults. Four optional headings: `## Use` (which skills), `## Rules`, `## Gates`, `## Then` (what to chain into). Your personal rules add to the team's and cannot drop them. See [docs/config.md](docs/config.md) for the rules and a solo and an enterprise example.
 
 ## Defaults
 

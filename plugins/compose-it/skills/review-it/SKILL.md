@@ -15,13 +15,13 @@ Review a change and report what must change before it ships. You report; you do 
 
 ## 0. Load config
 
-Read these files if they exist: `docs/sdlc/review.md` in the repo, then `~/.config/sdlc/review.md`. Also read `## Forge` from `docs/sdlc/stage.md`, or from `~/.config/sdlc/stage.md` if the repo file has none.
+Read these files if they exist: `docs/compose-it/review.md` in the repo, then `~/.config/compose-it/review.md`. Also read `## Forge` from `docs/compose-it/stage.md`, or from `~/.config/compose-it/stage.md` if the repo file has none.
 
 - `## Use`, `## Then`: the repo file wins; else the user file; else the defaults below.
 - `## Rules`, `## Gates`: apply the items from both files. A user file cannot remove or weaken a repo rule or gate.
 - Any other text is context.
 
-Say in one line what you loaded and which skills you will use, for example `config: repo docs/sdlc/review.md, user none · using: ponytail-review`. With no files, say once: `no compose-it config; using defaults (run /configure-it to tailor)`.
+Say in one line what you loaded and which skills you will use, for example `config: repo docs/compose-it/review.md, user none · using: ponytail-review`. With no files, say once: `no compose-it config; using defaults (run /configure-it to tailor)`.
 
 For each skill you will use that is not installed, say `<skill> not installed; using built-in guidance` and follow the built-in fallback. Never stop because a skill is missing.
 

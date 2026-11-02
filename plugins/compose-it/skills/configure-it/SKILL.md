@@ -1,6 +1,6 @@
 ---
 name: configure-it
-description: "Set up compose-it for a repo or for yourself: read the repo's existing conventions (CI, test commands, PR templates, CONTRIBUTING, CODEOWNERS, agent instructions, installed skills) and draft the docs/sdlc phase files that plan-it, build-it, stage-it and review-it follow."
+description: "Set up compose-it for a repo or for yourself: read the repo's existing conventions (CI, test commands, PR templates, CONTRIBUTING, CODEOWNERS, agent instructions, installed skills) and draft the docs/compose-it phase files that plan-it, build-it, stage-it and review-it follow."
 disable-model-invocation: true
 metadata:
   credits:
@@ -23,12 +23,12 @@ Read what exists; do not assume:
 - Gates: CI config (`.github/workflows/`, `.gitlab-ci.yml`, `.forgejo/workflows/`, `.gitea/workflows/`, `Jenkinsfile`), `Makefile`, `package.json` scripts, `pyproject.toml`, `Cargo.toml`, pre-commit hooks. What does CI run on a PR?
 - House templates: PR and issue templates.
 - Rules: `CONTRIBUTING.md`, `CODEOWNERS`, `SECURITY.md`, `CLAUDE.md`, `AGENTS.md`, branch and commit conventions in git history.
-- Existing config: `docs/sdlc/*.md` and `~/.config/sdlc/*.md`.
+- Existing config: `docs/compose-it/*.md` and `~/.config/compose-it/*.md`.
 - Installed skills: which of the defaults (`grilling`, `to-spec`, `to-tickets`, `ponytail`, `tdd`, `ponytail-review`) and which alternatives the user has. Propose an alternative as `- <job>: <skill>`, for example `- tests: our-tdd`.
 
 ## 2. Ask where to write
 
-Ask once: **repo** (`docs/sdlc/`, shared with the team, committed) or **user** (`~/.config/sdlc/`, yours, every repo). Recommend repo when the rules are the team's, user for personal habits.
+Ask once: **repo** (`docs/compose-it/`, shared with the team, committed) or **user** (`~/.config/compose-it/`, yours, every repo). Recommend repo when the rules are the team's, user for personal habits.
 
 ## 3. Propose each phase
 
