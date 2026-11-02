@@ -1,6 +1,6 @@
 # compose-it: an SDLC skill suite you configure for your environment
 
-**Spec version:** 4
+**Spec version:** 5
 **Owner:** Will (`willdah`)
 
 ## Problem
@@ -19,10 +19,10 @@ AI coding agents follow whatever skills happen to be installed, with no shared p
 - [ ] `build-it` works only against the spec's criteria and out-of-scope list, and records the spec version. New non-trivial logic or a bug fix gets a test that fails without the change; a bug's failing test is committed first. The branch follows Conventional Branch (`<type>/<ticket>-<slug>`) with the same type as the conventional commits. It does not hand off until every gate is green and every criterion is met or marked not met with a reason. It also accepts a review as input and fixes Must fix items and in-scope Should fix items, replying "fixed in `<sha>`" or "skipped: <reason>".
 - [ ] `stage-it` runs gates (stops on red), pushes, and opens a draft PR, or updates the existing PR for the branch. The body follows the house template if one exists, otherwise Summary visual / Evidence / Merge Danger, and adds `Closes #N`, "Built against spec vN" and the criteria checklist checked against the diff.
 - [ ] `review-it` reports only and never edits code: a PR review with inline comments when a PR exists, a terminal report otherwise. It sorts findings as Must fix / Should fix / Nice to have, and repo rule violations are always Must fix. It flags a stale spec version. It is the only skill that marks a PR ready, only with no open Must fix and every criterion ticked, and config can forbid it.
-- [ ] Chaining runs only through **Then** lines. Loop rounds are configurable (default 1) and stop early when there are no Must fix findings or the findings repeat.
+- [ ] Chaining runs only through **Then** lines, except that `build-it`, after fixing a review, returns to `review-it` directly so the round count is kept. Loop rounds are configurable (default 1) and stop early when there are no Must fix findings or the findings repeat.
 - [ ] No skill ever merges a PR, whatever the config says.
 - [ ] Forge commands come from config, with GitHub (`gh`) as the default.
-- [ ] Every skill folder has a `CREDITS.md`, and the repo root has one. They credit external work only: each leveraged default skill with its owner and source, marked "optional default, not bundled"; and adapted content with its origin. The same credits appear in each `SKILL.md` frontmatter under `metadata.credits`.
+- [ ] Every skill folder has a `CREDITS.md`, and the plugin root has one. They credit external work only: each leveraged default skill with its owner and source, marked "optional default, not bundled"; and adapted content with its origin. The same credits appear in each `SKILL.md` frontmatter under `metadata.credits`.
 - [ ] `docs/config.md` documents the headings and layering, with a solo example and an enterprise example. The license is MIT.
 
 ## Out of scope
@@ -76,6 +76,7 @@ skills/                                  # repo: willdah/skills
 
 ## Changelog
 
+- v5 (2026-11-02): build-it's review-fix step may call review-it directly; the root `CREDITS.md` is at the plugin root, as in Layout.
 - v4 (2026-11-02): credits list only external skills and their owners, not the plugin's own author.
 - v3 (2026-11-02): config paths renamed to `docs/compose-it/<phase>.md` and `~/.config/compose-it/<phase>.md`, after the plugin.
 - v2 (2026-11-02): housed in the `willdah/skills` marketplace repo under `plugins/compose-it/`, not its own repo.

@@ -32,7 +32,7 @@ Say in one line what you loaded and which skills you will use, for example `conf
 
 For each skill you will use that is not installed, say `<skill> not installed; using built-in guidance` and follow the built-in fallback. Never stop because a skill is missing.
 
-To call a skill, invoke it the way your agent loads skills (in Claude Code, the Skill tool), by the name your agent lists it under. Defaults below use bare names; some agents add a plugin prefix (Claude Code lists `ponytail` as `ponytail`). A job name such as **tests** is a slot, not a skill: call the skill you resolved for it.
+To call a skill, invoke it the way your agent loads skills (in Claude Code, the Skill tool), by the name your agent lists it under. Defaults below use bare names; some agents add a plugin prefix (Claude Code lists `ponytail` as `ponytail:ponytail`). A job name such as **spec** is a slot, not a skill: call the skill you resolved for it.
 
 Defaults, by job: **grill** `grilling`; **spec** `to-spec`; **split** `to-tickets`. A `## Use` item replaces the default for the job it names (`- spec: our-spec-writer`); jobs it does not name keep their default.
 

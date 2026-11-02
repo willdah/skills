@@ -10,7 +10,7 @@ metadata:
         note: the idea of Evidence and Merge danger sections
       - from: show-me
         author: Dex Horthy
-        organisation: HumanLayer
+        organization: HumanLayer
         source: https://github.com/humanlayer/humanlayer
         note: the Summary section's choice of visuals is adapted, not copied
 ---
@@ -49,7 +49,7 @@ No spec: use the criteria build-it reported. None reported: write 3–5 criteria
 
 ## 4. Write the body
 
-**House template first.** If the repo has a PR template (`.github/pull_request_template.md`, `.github/PULL_REQUEST_TEMPLATE/`, `.gitea/`, `.forgejo/`, `docs/`, or one named in config), fill it in. Otherwise use the built-in template. In both cases add the **Spec** block.
+**House template first.** If the repo has a PR template (`.github/pull_request_template.md`, a file in `.github/PULL_REQUEST_TEMPLATE/`, `pull_request_template.md` under `.gitea/`, `.forgejo/` or `docs/`, or one named in config), fill it in. Otherwise use the built-in template. In both cases add the **Spec** block.
 
 Built-in template:
 

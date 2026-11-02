@@ -36,7 +36,7 @@ Text under any other heading is read as context, for example notes on your forge
 
 ### Forge and tracker
 
-The skills use `gh` (GitHub) by default. For another forge or tracker, describe its commands in prose under a `## Forge` heading in `stage.md`. Every skill that talks to the forge reads it. Where specs go is set in `plan.md` (default: an issue on the forge; with no forge, `docs/specs/<slug>.md`).
+The skills use `gh` (GitHub) by default. For another forge or tracker, describe its commands in prose under a `## Forge` heading in `stage.md`. Every skill that talks to the forge reads it, from the repo `stage.md` if it has one, else from the user `stage.md`. Where specs go is set in `plan.md` (default: an issue on the forge; with no forge, `docs/specs/<slug>.md`).
 
 ### Chaining and loops
 
@@ -96,7 +96,7 @@ The skills use `gh` (GitHub) by default. For another forge or tracker, describe 
 ```markdown
 ## Rules
 - Every DB migration ships with a rollback migration.
-- No new dependency without an entry in DEPENDENCIES.md and a licence check.
+- No new dependency without an entry in DEPENDENCIES.md and a license check.
 - Branches are named `<type>/PAY-<n>-<slug>`.
 
 ## Gates

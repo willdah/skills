@@ -24,7 +24,7 @@ Say in one line what you loaded and which skills you will use, for example `conf
 
 For each skill you will use that is not installed, say `<skill> not installed; using built-in guidance` and follow the built-in fallback. Never stop because a skill is missing.
 
-To call a skill, invoke it the way your agent loads skills (in Claude Code, the Skill tool), by the name your agent lists it under. Defaults below use bare names; some agents add a plugin prefix (Claude Code lists `ponytail` as `ponytail`). A job name such as **tests** is a slot, not a skill: call the skill you resolved for it.
+To call a skill, invoke it the way your agent loads skills (in Claude Code, the Skill tool), by the name your agent lists it under. Defaults below use bare names; some agents add a plugin prefix (Claude Code lists `ponytail` as `ponytail:ponytail`). A job name such as **review** is a slot, not a skill: call the skill you resolved for it.
 
 Default, by job: **review** `ponytail-review`. Forge `gh`. A `## Use` item replaces the default for the job it names (`- review: our-secure-review`); a team review skill can also be added as a second job (`- compliance: our-sox-check`).
 
@@ -34,7 +34,7 @@ Default, by job: **review** `ponytail-review`. Forge `gh`. A `## Use` item repla
 
 What the user names: a PR (`#N`, URL), a branch, or files. Nothing named: the current branch against its base, or uncommitted changes if there are any. The input may carry `round k of N` from a chained loop.
 
-Find the spec (PR body, the `Spec:` commit trailer, branch name, or reference). Note its version. If the PR or trailer says it was built against spec vN and the spec is now newer, report that as a **Must fix**: the work may not match the current spec.
+Find the spec (PR body, the `Spec:` commit trailer, branch name, or reference). Note its version. If the PR or trailer says it was built against spec vN and the spec is now newer, put **Stale spec: built against vN, spec is now vM** at the top of the report. It blocks ready (step 4) but is not a **Must fix**, because a fix round cannot change the spec: the user decides whether to rebuild against the new version.
 
 No spec: write 3–5 acceptance criteria from the PR description and commits, show them, and continue only when the user confirms. Without confirmed criteria, never mark the PR ready.
 
@@ -60,6 +60,7 @@ Sort every finding as **Must fix** (bug, security, data loss, broken rule, red g
 Mark the PR ready (`gh pr ready N`, or the `## Forge` equivalent) only when all of these hold:
 
 - No **Must fix** is open.
+- The spec is not stale.
 - There is at least one confirmed acceptance criterion, and every one is met.
 - No `## Rules` item says a human marks PRs ready.
 
