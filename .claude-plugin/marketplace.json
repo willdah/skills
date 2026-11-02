@@ -6,7 +6,7 @@
   "plugins": [
     {
       "name": "create-it",
-      "description": "SDLC skills you configure for your environment: configure-it, plan-it, build-it, stage-it, review-it.",
+      "description": "SDLC skills you configure for your environment: create-it, configure-it, plan-it, build-it, stage-it, review-it.",
       "source": "./plugins/create-it",
       "category": "development"
     },

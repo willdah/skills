@@ -20,6 +20,8 @@ metadata:
 
 Turn what the user wants into a spec the other create-it skills can check work against. Always in this order: grill, then write the spec.
 
+**Called by create-it** (arguments start `called by create-it:`): do this phase, chain to nothing (skip `## Then`), and return the spec reference.
+
 ## 0. Load config
 
 Read these files if they exist: `docs/create-it/plan.md` in the repo, then `~/.config/create-it/plan.md`. Also read `## Forge` from `docs/create-it/stage.md`, or from `~/.config/create-it/stage.md` if the repo file has none.

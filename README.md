@@ -18,7 +18,7 @@ copilot plugin install create-it@willdah-skills
 
 | Plugin | What it does |
 | --- | --- |
-| [create-it](plugins/create-it) | SDLC skills (plan, build, stage, review) that follow your environment's config instead of hard-coding which skills to use. |
+| [create-it](plugins/create-it) | SDLC skills (plan, build, stage, review), plus `/create-it` to run them all in one go, that follow your environment's config instead of hard-coding which skills to use. |
 
 | Skill | What it does |
 | --- | --- |

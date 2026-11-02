@@ -17,6 +17,8 @@ metadata:
 
 Put a branch up for review as a draft PR that a human can review quickly. Invoking stage-it is approval to push and open or update the PR.
 
+**Called by create-it** (arguments start `called by create-it:`): do this phase, chain to nothing (skip `## Then`), add the assumptions it passes to the PR body, and return the PR link.
+
 ## 0. Load config
 
 Read these files if they exist: `docs/create-it/stage.md` in the repo, then `~/.config/create-it/stage.md`. Also read the `## Gates` of `build.md` at both levels.

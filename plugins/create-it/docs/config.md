@@ -42,6 +42,8 @@ The skills use `gh` (GitHub) by default. For another forge or tracker, describe 
 
 `## Then` names the next skill, for example `- stage-it`. In `review.md`, `- build-it, up to 3 rounds` sets the fix loop. The default is 1 round. A loop also stops early when a review finds no Must fix, or finds the same Must fix items as the last round.
 
+`/create-it` runs plan → build → stage → review in a fixed order and ignores every `## Then` line, except that it takes the round count N from `review.md`.
+
 ## What config cannot change
 
 - No skill merges or approves a PR, and only review-it marks one ready.

@@ -16,6 +16,8 @@ metadata:
 
 Build the work the user names against its spec, then hand off. Invoking build-it is approval to create a branch and commit.
 
+**Called by create-it** (arguments start `called by create-it:`): do this phase, chain to nothing (skip `## Then`, and skip step 7 of Fixing a review), and return the branch, each criterion as met or not met, and any assumptions. Do not ask the user: where the spec is silent, choose, and report the choice as an assumption.
+
 ## 0. Load config
 
 Read these files if they exist: `docs/create-it/build.md` in the repo, then `~/.config/create-it/build.md`. Also read `## Forge` from `docs/create-it/stage.md`, or from `~/.config/create-it/stage.md` if the repo file has none.

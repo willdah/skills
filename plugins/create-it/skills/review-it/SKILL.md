@@ -12,6 +12,8 @@ metadata:
 
 Review a change and report what must change before it ships. You report; you do not fix.
 
+**Called by create-it** (arguments start `called by create-it:`): do steps 1–4, skip step 5 (create-it runs the loop), and return the verdict: open Must fix findings, whether the spec is stale, and whether you marked the PR ready.
+
 ## 0. Load config
 
 Read these files if they exist: `docs/create-it/review.md` in the repo, then `~/.config/create-it/review.md`. Also read `## Forge` from `docs/create-it/stage.md`, or from `~/.config/create-it/stage.md` if the repo file has none.
