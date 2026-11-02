@@ -13,7 +13,9 @@
     {
       "name": "explorer",
       "description": "Map your SDLC environment (forge, tracker, CI/CD, registries, cloud auth, conventions, gates) into ENV_MAP.md for you and your agents, without recording secrets.",
-      "source": "./plugins/explorer",
+      "source": "./",
+      "strict": false,
+      "skills": ["./skills/explorer"],
       "category": "development"
     }
   ]
