@@ -76,7 +76,7 @@ skills/                                  # repo: willdah/skills
 
 ## Changelog
 
-- v6 (2026-11-02): plugin renamed compose-it → do-it; config paths follow (`docs/do-it/`, `~/.config/do-it/`), with no fallback to the old paths.
+- v6 (2026-11-02): renamed the plugin and its config paths to `do-it` (`docs/do-it/`, `~/.config/do-it/`), with no fallback to the old paths.
 - v5 (2026-11-02): build-it's review-fix step may call review-it directly; the root `CREDITS.md` is at the plugin root, as in Layout.
 - v4 (2026-11-02): credits list only external skills and their owners, not the plugin's own author.
 - v3 (2026-11-02): config paths renamed to `docs/compose-it/<phase>.md` and `~/.config/compose-it/<phase>.md`, after the plugin.
