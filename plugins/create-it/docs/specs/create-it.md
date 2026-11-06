@@ -1,6 +1,6 @@
 # create-it: an SDLC skill suite with proven methods built in
 
-**Spec version:** 8
+**Spec version:** 9
 **Owner:** Will (`willdah`)
 
 ## Problem
@@ -39,7 +39,7 @@ AI coding agents follow whatever skills happen to be installed, with no shared p
 
 ## Testing
 
-No automated tests (see Out of scope). Each criterion is checked by reading the changed files: `grep` for `## Use`, `## Forge`, `grill`, `configure-it` and `skills/explorer` returns only changelog and credit lines.
+No automated tests (see Out of scope). Each criterion is checked by reading the changed files: `grep` for `## Use`, `## Forge`, `grill`, `configure-it` and `skills/explorer` returns only changelog, credit and upgrade-note lines.
 
 ## Decisions
 
@@ -77,6 +77,7 @@ skills/                                  # repo: willdah/skills
 
 ## Changelog
 
+- v9 (2026-11-06): the Testing grep allows upgrade-note lines, which AC15 requires.
 - v8 (2026-11-06): methods built in, `## Use` removed; EARS criteria with stable IDs and a Testing section; "interview" replaces "grill"; PR body adds Review focus, How to verify and Follow-ups; review-it adds Standards, Security and Compliance axes in a fresh-context subagent; explore-it (from `explorer`) replaces configure-it; `## Forge` renamed `## Code Host`; caveman tone; credits as "inspired by"; version 0.3.0.
 - v7 (2026-11-02): renamed the plugin and its config paths to `create-it`, version 0.2.0; added the `create-it` driver skill, replacing the "no driver skill" decision and the umbrella-skill out-of-scope line.
 - v6 (2026-11-02): renamed the plugin and its config paths to `do-it` (`docs/do-it/`, `~/.config/do-it/`), with no fallback to the old paths.
