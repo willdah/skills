@@ -21,7 +21,7 @@ metadata:
 
 Put a branch up for review as a draft PR that a human, or an agent, can review quickly. Invoking stage-it is approval to push and open or update the PR.
 
-**Called by create-it** (arguments start `called by create-it:`): do this phase, chain to nothing (skip `## Then`), add the assumptions it passes to Review focus, and return the PR link.
+**Called by create-it** (arguments start `called by create-it:`): do this phase, chain to nothing (skip `## Then`), add the assumptions it passes to Follow-ups, lift the riskiest into Review focus, and return the PR link.
 
 ## Tone
 
