@@ -154,7 +154,7 @@ Environment map (code host, tracker, registries, cloud auth, conventions): ~/.co
 
 For a repo map, offer the same line with `docs/ENV_MAP.md` in the repo's `CLAUDE.md` or `AGENTS.md`.
 
-Then go to step 6.
+Then go to step 6. With a category argument, step 6 proposes only changes that come from that section.
 
 ## 6. Draft the create-it phase files
 
