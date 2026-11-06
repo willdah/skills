@@ -1,10 +1,9 @@
 # Credits
 
-## Leveraged skills
+Inspired by, not bundled: the methods below are rewritten in this skill's own words, and nothing is called at runtime.
 
-Optional defaults, not bundled. Install them separately; build-it falls back to built-in guidance without them.
-
-| Skill | Used for | Owner / source |
+| Skill | What we took | Owner / source |
 | --- | --- | --- |
-| `ponytail` (full) | the smallest complete change | [Dietrich Gebert](https://github.com/DietrichGebert), [`DietrichGebert/ponytail`](https://github.com/DietrichGebert/ponytail) |
-| `tdd` | test-first new logic and bug fixes | [Matt Pocock](https://github.com/mattpocock), [`mattpocock/skills`](https://github.com/mattpocock/skills) |
+| `ponytail` | list every place the change reaches; the first-option-that-works ladder; the never-cut list; `shortcut:` comments; report what was skipped | [Dietrich Gebert](https://github.com/DietrichGebert), [`DietrichGebert/ponytail`](https://github.com/DietrichGebert/ponytail) |
+| `tdd` | test at the agreed seam through public interfaces; red before green; implementation-coupled and tautological anti-patterns | [Matt Pocock](https://github.com/mattpocock), [`mattpocock/skills`](https://github.com/mattpocock/skills) |
+| `caveman` | terse tone for agent chat | [Julius Brussee](https://github.com/JuliusBrussee), [`JuliusBrussee/caveman`](https://github.com/JuliusBrussee/caveman) |

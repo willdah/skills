@@ -1,28 +1,38 @@
 ---
 name: create-it
-description: "Run the whole create-it loop from one request: grill the user, then without further input write the spec, build it, open a draft PR, review it and run the fix rounds. Use only when the user types /create-it."
+description: "Run the whole create-it loop from one request: interview the user, then without further input write the spec, build it, open a draft PR, review it and run the fix rounds. Use only when the user types /create-it."
 disable-model-invocation: true
 metadata:
-  credits: {}
+  credits:
+    inspired_by:
+      - skill: caveman
+        author: Julius Brussee
+        source: https://github.com/JuliusBrussee/caveman
+        took: terse tone for agent chat
 ---
 
-Take one request from idea to a reviewed draft PR. Run only when the user asks for create-it by name. The user takes part only in the grilling. After they agree that the open questions are resolved, ask for nothing more. Invoking create-it is approval to create a spec, a branch, commits, a push and a draft PR.
+Take one request from idea to a reviewed draft PR. Run only when the user asks for create-it by name. The user takes part only in the interview. After they agree that the open questions are resolved, ask for nothing more. Invoking create-it is approval to create a spec, a branch, commits, a push and a draft PR.
 
 **Config cannot change:** you never merge or approve a PR; only review-it marks one ready; you do not go on past a red gate.
+
+## Tone
+
+Agent chat (status, progress, the summary): terse, fragments OK. Warnings and anything the user asks to clarify: normal prose.
 
 ## 0. Setup
 
 - The request is the argument. No argument: ask once what to build, then start.
-- Read `## Then` from `docs/create-it/review.md` in the repo, else from `~/.config/create-it/review.md`. If it says `build-it, up to N rounds`, the fix rounds are N. Otherwise N is 1. create-it ignores every other `## Then` line: the order below is fixed. The phase skills still apply their own `## Use`, `## Rules` and `## Gates`.
+- Read `## Then` from `docs/create-it/review.md` in the repo, else from `~/.config/create-it/review.md`. If it says `build-it, up to N rounds`, the fix rounds are N. Otherwise N is 1. create-it ignores every other `## Then` line: the order below is fixed. The phase skills still apply their own `## Rules` and `## Gates`.
 - Say in one line: `create-it: plan → build → stage → review, up to N fix rounds`.
+- No create-it config at either level: run on defaults and say once `no create-it config; using defaults (run /explore-it to tailor)`. Do not require explore-it first.
 
 Call each phase skill with the Skill tool, by the name your agent lists it under (in Claude Code, `create-it:plan-it` and so on). Start every call's arguments with `called by create-it:`. That tells the skill to do its phase, chain to nothing and return its result to you.
 
 ## 1. Plan
 
-Call `plan-it` with the request. This is the only step where you talk with the user. plan-it grills them, and writes and stores the spec only when they agree that the open questions are resolved. Keep the spec reference (`#N`, URL or path).
+Call `plan-it` with the request. This is the only step where you talk with the user. plan-it interviews them, and writes and stores the spec only when they agree that the open questions are resolved. Keep the spec reference (`#N`, URL or path).
 
-Plan-it may split large work into a parent and children. If it does, build only the first child, and list the other children in the summary as not started.
+Plan-it may split large work into a parent and children. If it does, build only the first child that nothing blocks, and list the other children in the summary as not started.
 
 ## 2. Build
 

@@ -1,7 +1,9 @@
 # Credits
 
-## Adapted content
+Inspired by, not bundled: the methods below are rewritten in this skill's own words, and nothing is called at runtime.
 
-The Summary section's choice of visuals (file trees, call trees, component trees, pseudocode, Mermaid, diffs) and the advice to show only what answers the reviewer's question are adapted from [Dex Horthy](https://github.com/dexhorthy)'s `show-me` skill at [HumanLayer](https://github.com/humanlayer/humanlayer). The text is rewritten for a PR body, not copied. The Evidence and Merge danger sections follow the same idea as Matt Pocock's `pr` skill ([Matt Pocock](https://github.com/mattpocock), [`mattpocock/skills`](https://github.com/mattpocock/skills)).
-
-stage-it calls no other skill by default.
+| Skill | What we took | Owner / source |
+| --- | --- | --- |
+| `show-me` | the menu of text visuals, the smallest view that makes the point, diff shape matched to the topic, each visual next to the text it supports | [Dex Horthy](https://github.com/dexhorthy), HumanLayer, [`humanlayer/skills`](https://github.com/humanlayer/skills) |
+| `pr` | Evidence and Merge danger sections | [Matt Pocock](https://github.com/mattpocock), [`mattpocock/skills`](https://github.com/mattpocock/skills) |
+| `caveman` | terse tone for agent chat | [Julius Brussee](https://github.com/JuliusBrussee), [`JuliusBrussee/caveman`](https://github.com/JuliusBrussee/caveman) |
