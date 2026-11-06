@@ -1,6 +1,6 @@
 # create-it
 
-Six skills that take work from requirement to a reviewed PR, and follow your environment's rules instead of hard-coding which skills to use.
+Six skills that take work from requirement to a reviewed PR, with proven methods built in and your environment's rules on top.
 
 Claude Code:
 
@@ -18,30 +18,27 @@ copilot plugin install create-it@willdah-skills
 
 | Skill | Does |
 | --- | --- |
-| `/create-it` | Runs the whole loop: grills you, then on its own writes the spec, builds it, opens a draft PR, reviews it and runs the fix rounds. You only answer the grilling. |
-| `/configure-it` | Reads your repo (CI, templates, CONTRIBUTING, CODEOWNERS) and drafts the config below. |
-| `/plan-it` | Grills you on the requirements, then writes a versioned spec: problem, acceptance criteria, out of scope, decisions. |
-| `/build-it` | Builds the spec on a Conventional Branch until the criteria are met and the gates pass. Also fixes review findings. |
-| `/stage-it` | Runs the gates, pushes, and opens or updates a draft PR that shows the change and checks the criteria against the diff. |
-| `/review-it` | Reviews against the spec and your rules. Reports only, never edits code. The only skill that marks a PR ready. |
+| `/create-it` | Runs the whole loop: interviews you, then on its own writes the spec, builds it, opens a draft PR, reviews it and runs the fix rounds. You only answer the interview. |
+| `/explore-it` | Maps your environment (code host, tracker, CI, registries, cloud auth, conventions, gates) into `ENV_MAP.md` without recording secrets, then drafts the config below from what you confirm. |
+| `/plan-it` | Interviews you one question at a time, then writes a versioned spec: problem, EARS acceptance criteria with stable IDs (`AC1`…), out of scope, testing, decisions. |
+| `/build-it` | Builds the spec on a Conventional Branch with the smallest complete change and test-first logic, until the criteria are met and the gates pass. Also fixes review findings. |
+| `/stage-it` | Runs the gates, pushes, and opens or updates a draft PR that leads with what needs your judgment, shows the change visually, and checks each criterion by ID against the diff. |
+| `/review-it` | Reviews in a fresh context on four axes: spec, standards, security (OWASP, CWE), compliance. Reports only, never edits code. The only skill that marks a PR ready. |
 
 Each phase skill also works alone, for example `/review-it #12` on a colleague's PR. The spec is what they hand to each other: `/build-it #42`.
 
 ## Configure
 
-Each phase reads `docs/create-it/<phase>.md` in the repo, then `~/.config/create-it/<phase>.md`, then its defaults. Four optional headings: `## Use` (which skills), `## Rules`, `## Gates`, `## Then` (what to chain into). Your personal rules add to the team's and cannot drop them. See [docs/config.md](docs/config.md) for the rules and a solo and an enterprise example.
+Each phase reads `docs/create-it/<phase>.md` in the repo, then `~/.config/create-it/<phase>.md`, then its defaults. Optional headings: `## Rules`, `## Gates`, `## Then` (what to chain into), and `## Code Host` in `stage.md`. Your personal rules add to the team's and cannot drop them. See [docs/config.md](docs/config.md) for the details and a solo and an enterprise example.
 
-## Defaults
+## Upgrading from 0.2
 
-| Phase | Default skill | Without it |
-| --- | --- | --- |
-| plan | `grilling`, `to-spec`, `to-tickets` | built-in interview and spec format |
-| build | `ponytail` (full), `tdd` | built-in smallest-change and test-first guidance |
-| stage | none | built-in PR template |
-| review | `ponytail-review` | built-in review checklist |
-
-None are bundled. Install the ones you want; see [CREDITS.md](CREDITS.md) for their owners.
+0.3 builds the methods in. `## Use` is gone (write an extra team check as a Rules item), `## Forge` is now `## Code Host`, and `/explore-it` replaces `/configure-it`. There is no fallback for the old headings.
 
 ## Never
 
 No skill merges or approves a PR, and only review-it marks one ready. review-it never edits code. build-it and stage-it never hand off on a red gate.
+
+## Credits
+
+The methods are rewritten from skills by Matt Pocock, Dietrich Gebert, Dex Horthy (HumanLayer) and Julius Brussee. See [CREDITS.md](CREDITS.md).

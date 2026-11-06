@@ -18,12 +18,6 @@ copilot plugin install create-it@willdah-skills
 
 | Plugin | What it does |
 | --- | --- |
-| [create-it](plugins/create-it) | SDLC skills (plan, build, stage, review), plus `/create-it` to run them all in one go, that follow your environment's config instead of hard-coding which skills to use. |
-
-| Skill | What it does |
-| --- | --- |
-| [explorer](skills/explorer/SKILL.md) | Maps your SDLC environment (forge, tracker, registries, cloud auth, conventions, gates) into `ENV_MAP.md` for you and your agents, without recording secrets. Run `/explorer`, `/explorer <category>` to rescan one section, `/explorer --history` to include shell history, or `/explorer --remote` to also search your orgs on GitHub, GitLab, Forgejo and other VCS providers (read-only, opt-in). |
-
-Install a skill as a plugin (`/plugin install explorer@willdah-skills`, `copilot plugin install explorer@willdah-skills`), with `npx skills add willdah/skills`, or by copying its folder into `~/.claude/skills/`.
+| [create-it](plugins/create-it) | SDLC skills with proven methods built in: `/explore-it` maps your environment and drafts config, `/plan-it`, `/build-it`, `/stage-it` and `/review-it` take work from requirement to a reviewed PR, and `/create-it` runs them all in one go. |
 
 MIT licensed. Each plugin's `CREDITS.md` names the people whose skills and ideas it builds on.

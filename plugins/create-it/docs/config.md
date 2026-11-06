@@ -1,6 +1,6 @@
 # Configuring create-it
 
-Each create-it skill reads a short markdown file for its phase. Run `/configure-it` to draft them from your repo, or write them by hand.
+Each create-it phase skill reads a short markdown file for its phase. Run `/explore-it` to map your environment and draft them from what it finds, or write them by hand.
 
 | Phase | Skill | File |
 | --- | --- | --- |
@@ -17,26 +17,26 @@ Each create-it skill reads a short markdown file for its phase. Run `/configure-
 
 Every file is optional. With none, the skills use their defaults and say so once.
 
-## The four headings
+## The headings
 
-All four are optional. Write them as plain markdown lists.
+All are optional. Write them as plain markdown lists.
 
 | Heading | Means | Repo and user both set it |
 | --- | --- | --- |
-| `## Use` | Skills to call for this phase, by job, replacing that job's default | Repo wins |
 | `## Rules` | Requirements the work must meet | Both apply |
 | `## Gates` | Checks that must pass before the phase is done (commands preferred) | Both apply |
 | `## Then` | The skill to chain into when this phase is done | Repo wins |
+| `## Code Host` (in `stage.md` only) | Commands for your code host | Repo wins |
 
-Write each `## Use` item as `- <job>: <skill>`, for example `- tests: our-tdd`. Use the name your agent lists the skill under (Claude Code prefixes plugin skills, for example `- review: acme-tools:secure-review`). It replaces the default for that job; jobs you do not name keep their default. The jobs are: plan `grill`, `spec`, `split`; build `coding-guide`, `tests`; review `review` (review also takes extra jobs, for example `- compliance: our-sox-check`). stage-it has no `## Use`: its PR template is built in, and a house template replaces it.
+The methods (how to interview, build, write a PR, review) are built into the skills and cannot be swapped. To add a check of your own, write it as a Rules item, for example `- Also run the our-sox-check skill on changes under payments/`. review-it runs a skill named this way and reports its findings under Compliance.
 
 A user file can add rules and gates, but never remove or weaken a repo rule or gate. To change a team rule, edit the repo file where the team can see it.
 
-Text under any other heading is read as context, for example notes on your forge or tracker.
+Text under any other heading is read as context, for example notes on your tracker.
 
-### Forge and tracker
+### Code host and tracker
 
-The skills use `gh` (GitHub) by default. For another forge or tracker, describe its commands in prose under a `## Forge` heading in `stage.md`. Every skill that talks to the forge reads it, from the repo `stage.md` if it has one, else from the user `stage.md`. Where specs go is set in `plan.md` (default: an issue on the forge; with no forge, `docs/specs/<slug>.md`).
+The **code host** is the platform that hosts your repo, pull requests and issues: GitHub, GitLab, Forgejo, Bitbucket. The skills use `gh` (GitHub) by default. For another code host, describe its commands in prose under `## Code Host` in `stage.md`: how to open a draft PR, mark it ready, post a review, and create an issue. Every skill that talks to the code host reads it, from the repo `stage.md` if it has one, else from the user `stage.md`. Where specs go is set in `plan.md` (default: an issue on the code host; with none, `docs/specs/<slug>.md`).
 
 ### Chaining and loops
 
@@ -66,6 +66,13 @@ The skills use `gh` (GitHub) by default. For another forge or tracker, describe 
 `~/.config/create-it/stage.md`
 
 ```markdown
+## Code Host
+Forgejo at git.example.com. Use `tea` instead of `gh`:
+- open a draft PR: `tea pulls create --head <branch> --base main -t "WIP: <title>" --description-file <file>`
+- mark ready: edit the title to drop `WIP: `
+- post a review: `tea api -X POST 'repos/{owner}/{repo}/pulls/N/reviews' -d @review.json`
+- create an issue: `tea issues create -t <title> -d <body>`
+
 ## Then
 - review-it
 ```
@@ -77,17 +84,11 @@ The skills use `gh` (GitHub) by default. For another forge or tracker, describe 
 - build-it, up to 2 rounds
 ```
 
-`~/.config/create-it/stage.md` can also carry a `## Forge` section, for example a table that maps `gh` commands to `tea` for a Forgejo server.
-
 ## Example: enterprise team
 
 `docs/create-it/plan.md`
 
 ```markdown
-## Use
-- grill: our-discovery-interview
-- spec: our-spec-writer
-
 ## Rules
 - Specs go to Jira project PAY with `jira issue create`; reference them as `PAY-123`.
 - Every spec names a data-classification level.
@@ -104,17 +105,20 @@ The skills use `gh` (GitHub) by default. For another forge or tracker, describe 
 ## Gates
 - `make check`
 - `make sast`
+- `gitleaks detect --no-banner`
 ```
 
 `docs/create-it/review.md`
 
 ```markdown
-## Use
-- review: our-secure-review
-
 ## Rules
+- Also run the our-sox-check skill on changes under `payments/`.
 - Changes under `payments/` need the SOX checklist in the PR body.
 - A human marks PRs ready; review-it never does.
 ```
 
 A developer's personal `~/.config/create-it/build.md` still applies on top: their rules and gates are added; the team's stay.
+
+## Upgrading from 0.2
+
+`## Use` and `## Forge` are no longer read. Delete `## Use` lines, or rewrite a team skill you want run as a Rules item. Rename `## Forge` to `## Code Host`. `configure-it` is replaced by `explore-it`.
