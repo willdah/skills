@@ -1,12 +1,23 @@
 ---
-name: explorer
-description: "Map the user's SDLC environment: search their machine, current repo, other local clones and, if they opt in, their orgs on GitHub/GitLab/Forgejo and other VCS providers for the forge, tracker, CI/CD, registries, cloud auth, conventions and gates they use, identify the patterns, review them with the user, and write ENV_MAP.md for agents and the user. Never records secrets."
+name: explore-it
+description: "Map the user's SDLC environment and set up create-it for it: search their machine, current repo, other local clones and, if they opt in, their orgs on GitHub/GitLab/Forgejo and other VCS providers for the forge, tracker, CI/CD, registries, cloud auth, conventions and gates they use, identify the patterns, review them with the user, write ENV_MAP.md for agents and the user, then draft the create-it phase files (rules, gates, chaining, code host) from the confirmed patterns. Never records secrets."
 disable-model-invocation: true
+metadata:
+  credits:
+    inspired_by:
+      - skill: caveman
+        author: Julius Brussee
+        source: https://github.com/JuliusBrussee/caveman
+        took: terse tone for agent chat
 ---
 
-Run only when the user asks for explorer by name; never start it on your own. Do the legwork of learning this user's environment, then write what you learn as patterns in `ENV_MAP.md`: what an agent should do, with the evidence the user needs to check it.
+Run only when the user asks for explore-it by name; never start it on your own. Do the legwork of learning this user's environment, then write what you learn as patterns in `ENV_MAP.md`: what an agent should do, with the evidence the user needs to check it.
 
-Arguments: an optional category (for example `/explorer cloud`) rescans only that section; `--history` opts in to shell history; `--remote[=N]` opts in to the remote layer (step 1.5) without the prompt, `N` repos per org (default 20).
+Arguments: an optional category (for example `/explore-it cloud`) rescans only that section; `--history` opts in to shell history; `--remote[=N]` opts in to the remote layer (step 1.5) without the prompt, `N` repos per org (default 20).
+
+## Tone
+
+Agent chat (status, summaries): terse, fragments OK. The map, the phase files and review questions: short full sentences. Anything about secrets or what leaves the machine: normal prose.
 
 ## Hard rules
 
@@ -42,7 +53,7 @@ Where your agent can run subagents in parallel, you may give each a group of cat
 
 Once layers 1–4 are done:
 
-1. **Confirm the VCS.** Draft section 1 (Source control / forge) from local evidence only and show it: hosts, CLI and login state, the orgs or groups behind the remotes, the user's own namespace. The user confirms or corrects it; it becomes `confirmed`.
+1. **Confirm the VCS.** Draft section 1 (Source control / code host) from local evidence only and show it: hosts, CLI and login state, the orgs or groups behind the remotes, the user's own namespace. The user confirms or corrects it; it becomes `confirmed`.
 2. **Ask once**, unless `--remote` was passed, default **no**: list each confirmed host, its orgs, and the auth path you would use (below). The user may drop orgs. Record a no as `remote: no` in the header and go to step 2.
 3. **Auth, per host, first that works:**
    1. The provider's logged-in CLI: `gh api` (GitHub), `glab api` (GitLab), `tea api` (Forgejo/Gitea), `az repos` / `az devops invoke` (Azure DevOps), or the Bitbucket CLI.
@@ -59,7 +70,7 @@ Turn the findings into patterns: what an agent should do in this environment, no
 
 Cover these sections in this order. Write a section with nothing found as `Not found.` so agents know it was checked.
 
-1. Source control / forge: hosts, CLI and login state, SSH or HTTPS, commit signing
+1. Source control / code host: hosts, CLI and login state, SSH or HTTPS, commit signing
 2. Issue tracking / project management: GitHub Issues/Projects, Jira, Rally, Linear, Azure Boards
 3. CI/CD
 4. Artifact and package registries: Nexus, Artifactory, GHCR, ECR, npm/PyPI/Maven/Go proxies and mirrors
@@ -138,9 +149,29 @@ Confirmed entries are rules; inferred entries are hints to check.
 **Pointer line:** offer to add this line to each agent-instruction file that exists, `~/.claude/CLAUDE.md`, `~/.copilot/copilot-instructions.md`, `~/AGENTS.md`. Add it only if the file does not already mention `ENV_MAP.md`:
 
 ```markdown
-Environment map (forge, tracker, registries, cloud auth, conventions): ~/.config/explorer/ENV_MAP.md. Read it before using any of those systems; confirmed entries are rules, inferred entries are hints.
+Environment map (code host, tracker, registries, cloud auth, conventions): ~/.config/explorer/ENV_MAP.md. Read it before using any of those systems; confirmed entries are rules, inferred entries are hints.
 ```
 
 For a repo map, offer the same line with `docs/ENV_MAP.md` in the repo's `CLAUDE.md` or `AGENTS.md`.
 
-Finish by telling the user which files you wrote, how many patterns are confirmed and inferred, and which gaps are still open.
+Then go to step 6.
+
+## 6. Draft the create-it phase files
+
+Turn the confirmed patterns into the phase files create-it reads, so plan-it, build-it, stage-it and review-it follow this environment instead of their defaults. The format is in this plugin's `docs/config.md`: `## Rules`, `## Gates`, `## Then`, plus `## Code Host` in `stage.md`. The map records what the environment is; the phase files record what create-it must do. Inferred patterns are not rules: ask about them or leave them out.
+
+1. Read existing config first: `docs/create-it/*.md` and `~/.config/create-it/*.md`. Propose changes to them, never silent overwrites.
+2. Ask once where to write: **repo** (`docs/create-it/`, shared with the team, committed) or **user** (`~/.config/create-it/`, yours, every repo). Recommend repo when the rules are the team's, user for personal habits. A repo file follows the repo-map limits in step 5: no usernames, personal profiles or home paths.
+3. Propose one phase at a time, in order: plan, build, stage, review. Show a draft file with one line per item saying which pattern it came from, for example `- make check  (from section 3: CI runs it on every PR)`. Leave out anything that matches the defaults; if nothing differs, say `plan: defaults fit, no file`. Lead with your recommendation so the user can accept in a word.
+4. Write only the files the user confirms. Do not commit.
+
+What to propose:
+
+- `plan.md`: where specs go (section 2: code host issues, Jira, Linear or files) and required spec fields.
+- `build.md`: CI commands and the security and compliance scanners already in place (sections 3 and 18: `semgrep`, `gitleaks`, `npm audit`, CodeQL, SonarQube) as `## Gates`; branch and commit conventions that differ from Conventional Branch and conventional commits (section 11); a worktree rule if the user runs parallel agents (section 17); rules from `CONTRIBUTING.md` and agent instructions.
+- `stage.md`: `## Code Host` commands when the code host is not GitHub (section 1: map each `gh` command the skills use to the host's CLI, including draft and ready). A house PR template is used automatically and needs no line.
+- `review.md`: compliance and review rules (section 18, `CONTRIBUTING.md`, `SECURITY.md`, `CODEOWNERS`, policy docs); a team review or compliance skill the user has installed, as a prose Rules line (`- Also run the our-sox-check skill on changes under payments/`); whether review-it may mark PRs ready (section 12); chaining and loop rounds.
+
+Domain docs (glossary, ADRs, architecture docs) need no line: plan-it finds them. Report which ones exist so the user knows.
+
+Finish by telling the user which files you wrote, how many patterns are confirmed and inferred, which gaps are still open, and that a repo-level file should go through their normal review.
