@@ -33,6 +33,8 @@ Each phase reads `docs/create-it/<phase>.md` in the repo, then `~/.config/create
 
 ## Upgrading from 0.2
 
+0.6 uses [Conventional Comments](https://conventionalcomments.org) names for review groups: Must fix is now `issue (blocking)`, Should fix `suggestion (non-blocking)`, and Nice to have `nitpick (non-blocking)`. The `create-it-report` key `must_fix` is now `blocking`. Update any `## Rules` line that names the old groups.
+
 0.5 makes `/create-it` an orchestrator: each phase after planning runs in its own agent session and ends with a `create-it-report` block. Agents without subagents run the phases inline, with a warning. Phase skills called directly are unchanged.
 
 0.4 makes specs iterative: plan-it confirms the goal and the functional and non-functional requirements, proposes up to 3 approaches, and writes acceptance criteria nested under each requirement (`F1.1`), with Future follow-ups; build-it and review-it share one definition of done. Older specs with flat `AC1` criteria still work.

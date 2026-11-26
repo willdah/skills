@@ -117,14 +117,14 @@ Where it goes:
 - A PR exists: post one review. Put each finding as an inline comment on its line where you can, in [Conventional Comments](https://conventionalcomments.org) form (below), and the full numbered list in the review body (`gh api repos/{owner}/{repo}/pulls/N/reviews`, or the `## Code Host` equivalent). Use the comment event unless `## Rules` says to request changes on an `issue (blocking)` finding. Never approve.
 - No PR: print the report in the terminal.
 
-An inline comment starts with `<label> (<decorations>): #<n> <subject>`, where `<n>` is the finding's number in the review body, then gives the four parts. The label and decorations come from the group, with the axis in lower case:
+An inline comment starts with ``<label> (<decorations>): `#<n>` <subject>``, where `<n>` is the finding's number in the review body, in a code span so the code host does not link it to an issue or PR, then gives the four parts. The label and decorations come from the group, with the axis in lower case:
 
 - `issue (blocking)` finding: `issue (blocking, <axis>)`
 - `suggestion (non-blocking)` finding: `suggestion (non-blocking, <axis>)`
 - `nitpick (non-blocking)` finding: `nitpick (non-blocking, <axis>)`
 
 ```markdown
-issue (blocking, security): #2 User id from the URL reaches SQL unescaped (CWE-89)
+issue (blocking, security): `#2` User id from the URL reaches SQL unescaped (CWE-89)
 
 - **What this is:** The orders endpoint looks up orders for the id in the URL.
 - **Problem:** The id is pasted into the SQL string. `?id=1 OR 1=1` returns every customer's orders.
