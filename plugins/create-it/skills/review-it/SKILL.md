@@ -44,13 +44,15 @@ What the user names: a PR (`#N`, URL), a branch, or files. Nothing named: the cu
 
 Find the spec (PR body, the `Spec:` commit trailer, branch name, or reference). Note its version. If the PR or trailer says it was built against spec vN and the spec is now newer, put **Stale spec: built against vN, spec is now vM** at the top of the report. It blocks ready (step 4) but is not a **Must fix**, because a fix round cannot change the spec: the user decides whether to rebuild.
 
-No spec: write 3–5 criteria (IDs `AC1`…) from the PR description and commits, show them, and continue only when the user confirms. Without confirmed criteria, never mark the PR ready.
+No spec: write 1–3 requirements (`F1`, `N1`), each with its criteria (`F1.1`…, EARS for behaviour) from the PR description and commits, show them, and continue only when the user confirms. Without confirmed criteria, never mark the PR ready.
+
+Acceptance criteria are the checkboxes under each requirement in the spec's `## Requirements` (IDs like `F1.1`, `N2.1`). An older spec with a flat `## Acceptance criteria` section (`AC1`…) works the same way: its items are the criteria.
 
 Collect the sources the axes need: the diff, the spec, the repo's standards docs (`CONTRIBUTING.md`, `CODING_STANDARDS.md`, `AGENTS.md`, `CLAUDE.md`, style guides), its compliance sources (`## Rules`, `SECURITY.md`, compliance or policy docs, checklists in the PR template, `CODEOWNERS` entries on sensitive paths), and `ENV_MAP.md` if present.
 
 ## 2. Review in a fresh context
 
-Where your agent can run a subagent, hand steps 2a–2c to one, with the diff command, the spec, the source list above and this section. The reviewer then sees the change the way a colleague would, without the author's reasoning, which matters most when create-it chained build and review in one session. Without subagents, review here.
+Where your agent can run a subagent, hand steps 2a–2c to one, with the diff command, the spec, the source list above, this section and the Definition of done. The reviewer then sees the change the way a colleague would, without the author's reasoning, which matters most when create-it chained build and review in one session. Without subagents, review here.
 
 ### 2a. Understand first
 
@@ -58,7 +60,9 @@ Read the diff, then the code it touches: callers of every changed function, the 
 
 ### 2b. Four axes
 
-**Spec.** Each criterion by ID against the actual diff: missing, partial (`AC3 partial`), or done wrong. Behaviour nobody asked for, including anything Out of scope excludes.
+**Spec.** Each criterion by ID against the actual diff: missing, partial (`F1.2 partial`), or done wrong. A requirement with no criterion. Behaviour nobody asked for, including anything Out of scope excludes and any Future follow-up built early.
+
+**Definition of done.** The change against the **Definition of done** below. Report each miss under the Standards axis.
 
 **Standards.** In this order: bugs (wrong result, crash, missed edge case, a broken caller, a fix in one caller while the shared code stays broken); scale (races, work repeated per process, unbounded growth, a query per item, per-process state that must be shared); risky logic with no test that fails when it breaks; real slowness; code that should not exist (dead code, unused options, a helper the repo already has, an abstraction with one use, near-copies that must change together). Also breaks of the repo's documented standards, each citing file and rule. A `shortcut:` comment that names its limit is a decision, not a finding, unless the expected load already crosses it.
 
@@ -87,8 +91,8 @@ Run each `## Gates` item yourself. Do not run a gate that writes files (a format
 
 Sort every finding into one list:
 
-- **Must fix:** bug, data loss, breaks at the expected load, a broken `## Rules` item, a red gate, an unmet criterion, an exploitable security finding, any compliance finding.
-- **Should fix:** risky code without a test, real slowness, duplication, code that should not exist, security hardening with no concrete exploit.
+- **Must fix:** bug, data loss, breaks at the expected load, a broken `## Rules` item, a red gate, a missing required test, an unmet criterion, a requirement with no criterion, an exploitable security finding, any compliance finding.
+- **Should fix:** risky code without a test, real slowness, duplication, code that should not exist, an abstraction no requirement needs, a change that blocks a Future follow-up, security hardening with no concrete exploit.
 - **Nice to have:** small speed-ups, shorter forms.
 
 Number findings across groups so the user can say "fix 2 and 5". Tag each with its axis. Every finding has four parts, each one or two short sentences:
@@ -123,6 +127,16 @@ Mark the PR ready (`gh pr ready N`, or the `## Code Host` equivalent) only when 
 - No `## Rules` item says a human marks PRs ready.
 
 Otherwise leave it as a draft and say what blocks it.
+
+## Definition of done
+
+Every change meets this, whatever the spec says. build-it builds to it; review-it checks it. A repo adds items under `## Rules` or `## Gates`; none of these can be removed.
+
+- Every acceptance criterion is met, with evidence: a test, a command's output or a screenshot.
+- Gates are green. New non-trivial logic and bug fixes have a test that fails without the change.
+- Built for change: each concern lives in one place, so adding a field, rule or case is a local edit; names match the domain; no dead code.
+- Future follow-ups stay cheap: nothing is built for them, and nothing blocks them. A change that makes one harder says so in the PR.
+- No option, layer or abstraction that no requirement needs.
 
 ## 5. Loop
 
