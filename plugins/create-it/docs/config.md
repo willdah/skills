@@ -40,7 +40,7 @@ The **code host** is the platform that hosts your repo, pull requests and issues
 
 ### Chaining and loops
 
-`## Then` names the next skill, for example `- stage-it`. In `review.md`, `- build-it, up to 3 rounds` sets the fix loop. The default is 1 round. A loop also stops early when a review finds no Must fix, or finds the same Must fix items as the last round.
+`## Then` names the next skill, for example `- stage-it`. In `review.md`, `- build-it, up to 3 rounds` sets the fix loop. The default is 1 round. A loop also stops early when a review finds no `issue (blocking)` finding, or finds the same `issue (blocking)` findings as the last round.
 
 `/create-it` runs plan → build → stage → review in a fixed order and ignores every `## Then` line, except that it takes the round count N from `review.md`.
 

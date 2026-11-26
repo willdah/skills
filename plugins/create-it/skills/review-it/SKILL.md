@@ -1,6 +1,6 @@
 ---
 name: review-it
-description: "Review a change on four axes (spec, the repo's standards, security, compliance) in a fresh context, and report findings as Must fix / Should fix / Nice to have, as a PR review or a local report. Never edits code. The only create-it skill that marks a PR ready. Use when the user wants a change, branch or PR reviewed, a security or compliance check of a diff, or asks whether something is ready to merge."
+description: "Review a change on four axes (spec, the repo's standards, security, compliance) in a fresh context, and report findings as issue (blocking) / suggestion (non-blocking) / nitpick (non-blocking) in Conventional Comments form, as a PR review or a local report. Never edits code. The only create-it skill that marks a PR ready. Use when the user wants a change, branch or PR reviewed, a security or compliance check of a diff, or asks whether something is ready to merge."
 metadata:
   credits:
     inspired_by:
@@ -20,7 +20,7 @@ metadata:
 
 Review a change and report what must change before it ships. You report; you do not fix.
 
-**Called by create-it** (arguments start `called by create-it:`): do steps 1–4, skip step 5 (create-it runs the loop), do step 2 here, without a nested subagent (create-it already gave you a fresh session), and end with the `create-it-report` block the caller gives you, filling `phase`, `status`, `blocked`, `pr`, `verdict`, `must_fix` (one line per open Must fix), `spec_stale` and `ready`.
+**Called by create-it** (arguments start `called by create-it:`): do steps 1–4, skip step 5 (create-it runs the loop), do step 2 here, without a nested subagent (create-it already gave you a fresh session), and end with the `create-it-report` block the caller gives you, filling `phase`, `status`, `blocked`, `pr`, `verdict`, `blocking` (one line per open issue (blocking) finding), `spec_stale` and `ready`.
 
 ## Tone
 
@@ -42,7 +42,7 @@ Say in one line what you loaded, for example `config: repo docs/create-it/review
 
 What the user names: a PR (`#N`, URL), a branch, or files. Nothing named: the current branch against its base, or uncommitted changes if there are any. The input may carry `round k of N` from a chained loop.
 
-Find the spec (PR body, the `Spec:` commit trailer, branch name, or reference). Note its version. If the PR or trailer says it was built against spec vN and the spec is now newer, put **Stale spec: built against vN, spec is now vM** at the top of the report. It blocks ready (step 4) but is not a **Must fix**, because a fix round cannot change the spec: the user decides whether to rebuild.
+Find the spec (PR body, the `Spec:` commit trailer, branch name, or reference). Note its version. If the PR or trailer says it was built against spec vN and the spec is now newer, put **Stale spec: built against vN, spec is now vM** at the top of the report. It blocks ready (step 4) but is not an `issue (blocking)` finding, because a fix round cannot change the spec: the user decides whether to rebuild.
 
 No spec: write 1–3 requirements (`F1`, `N1`), each with its criteria (`F1.1`…, EARS for behaviour) from the PR description and commits, show them, and continue only when the user confirms. Without confirmed criteria, never mark the PR ready.
 
@@ -91,9 +91,9 @@ Run each `## Gates` item yourself. Do not run a gate that writes files (a format
 
 Sort every finding into one list:
 
-- **Must fix:** bug, data loss, breaks at the expected load, a broken `## Rules` item, a red gate, a missing required test, an unmet criterion, a requirement with no criterion, an exploitable security finding, any compliance finding.
-- **Should fix:** risky code without a test, real slowness, duplication, code that should not exist, an abstraction no requirement needs, a change that blocks a Future follow-up, security hardening with no concrete exploit.
-- **Nice to have:** small speed-ups, shorter forms.
+- `issue (blocking)`: bug, data loss, breaks at the expected load, a broken `## Rules` item, a red gate, a missing required test, an unmet criterion, a requirement with no criterion, an exploitable security finding, any compliance finding.
+- `suggestion (non-blocking)`: risky code without a test, real slowness, duplication, code that should not exist, an abstraction no requirement needs, a change that blocks a Future follow-up, security hardening with no concrete exploit.
+- `nitpick (non-blocking)`: small speed-ups, shorter forms.
 
 Number findings across groups so the user can say "fix 2 and 5". Tag each with its axis. Every finding has four parts, each one or two short sentences:
 
@@ -114,14 +114,29 @@ Nothing found: `What this change does:`, then `Looks good. Ship.` and one line o
 
 Where it goes:
 
-- A PR exists: post one review. Put each finding as an inline comment on its line where you can, and the full numbered list in the review body (`gh api repos/{owner}/{repo}/pulls/N/reviews`, or the `## Code Host` equivalent). Use the comment event unless `## Rules` says to request changes on a Must fix. Never approve.
+- A PR exists: post one review. Put each finding as an inline comment on its line where you can, in [Conventional Comments](https://conventionalcomments.org) form (below), and the full numbered list in the review body (`gh api repos/{owner}/{repo}/pulls/N/reviews`, or the `## Code Host` equivalent). Use the comment event unless `## Rules` says to request changes on an `issue (blocking)` finding. Never approve.
 - No PR: print the report in the terminal.
+
+An inline comment starts with `<label> (<decorations>): #<n> <subject>`, where `<n>` is the finding's number in the review body, then gives the four parts. The label and decorations come from the group, with the axis in lower case:
+
+- `issue (blocking)` finding: `issue (blocking, <axis>)`
+- `suggestion (non-blocking)` finding: `suggestion (non-blocking, <axis>)`
+- `nitpick (non-blocking)` finding: `nitpick (non-blocking, <axis>)`
+
+```markdown
+issue (blocking, security): #2 User id from the URL reaches SQL unescaped (CWE-89)
+
+- **What this is:** The orders endpoint looks up orders for the id in the URL.
+- **Problem:** The id is pasted into the SQL string. `?id=1 OR 1=1` returns every customer's orders.
+- **Fix:** Pass the id as a query parameter: `cur.execute("… WHERE user_id = %s", (uid,))`.
+- **If we skip it:** Anyone can read every order in the database.
+```
 
 ## 4. Ready or not
 
 Mark the PR ready (`gh pr ready N`, or the `## Code Host` equivalent) only when all of these hold:
 
-- No **Must fix** is open.
+- No `issue (blocking)` finding is open.
 - The spec is not stale.
 - There is at least one confirmed criterion, and every one is met.
 - No `## Rules` item says a human marks PRs ready.
@@ -142,10 +157,10 @@ Every change meets this, whatever the spec says. build-it builds to it; review-i
 
 `## Then` (usually `build-it, up to N rounds`; with no number, N is 1) sets N fix rounds. Input with no round means no fix has run yet: k = 0. Input `round k of N` means fix round k has just run.
 
-If there are open **Must fix** findings, call the `## Then` skill with the PR and `round k+1 of N`. Stop instead, and tell the user why, when any of these holds:
+If there are open `issue (blocking)` findings, call the `## Then` skill with the PR and `round k+1 of N`. Stop instead, and tell the user why, when any of these holds:
 
-- No **Must fix** is open.
+- No `issue (blocking)` finding is open.
 - k = N: every fix round is used.
-- k ≥ 1 and the **Must fix** findings are the same as in the previous review-it review on this PR: the loop is not making progress.
+- k ≥ 1 and the `issue (blocking)` findings are the same as in the previous review-it review on this PR: the loop is not making progress.
 
 Give the user the PR link and the verdict.
