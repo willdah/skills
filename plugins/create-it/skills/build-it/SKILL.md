@@ -20,7 +20,7 @@ metadata:
 
 Build the work the user names against its spec, then hand off. Invoking build-it is approval to create a branch and commit.
 
-**Called by create-it** (arguments start `called by create-it:`): do this phase, chain to nothing (skip `## Then`, and skip step 7 of Fixing a review), and return the branch, each criterion as met or not met, and any assumptions. Do not ask the user: where the spec is silent, choose, and report the choice as an assumption.
+**Called by create-it** (arguments start `called by create-it:`): do this phase, chain to nothing (skip `## Then`, and skip step 7 of Fixing a review), and end with the `create-it-report` block the caller gives you, filling `phase`, `status`, `blocked` (a red gate you cannot fix), `spec`, `branch`, `criteria` (each ID met or not met) and `assumptions` (also what you skipped or did not check, and any risk). Do not ask the user: where the spec is silent, choose, and report the choice as an assumption.
 
 ## Tone
 

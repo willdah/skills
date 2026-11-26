@@ -20,7 +20,7 @@ metadata:
 
 Review a change and report what must change before it ships. You report; you do not fix.
 
-**Called by create-it** (arguments start `called by create-it:`): do steps 1–4, skip step 5 (create-it runs the loop), and return the verdict: open Must fix findings, whether the spec is stale, and whether you marked the PR ready.
+**Called by create-it** (arguments start `called by create-it:`): do steps 1–4, skip step 5 (create-it runs the loop), do step 2 here, without a nested subagent (create-it already gave you a fresh session), and end with the `create-it-report` block the caller gives you, filling `phase`, `status`, `blocked`, `pr`, `verdict`, `must_fix` (one line per open Must fix), `spec_stale` and `ready`.
 
 ## Tone
 

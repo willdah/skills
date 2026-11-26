@@ -18,7 +18,7 @@ copilot plugin install create-it@willdah-skills
 
 | Skill | Does |
 | --- | --- |
-| `/create-it` | Runs the whole loop: plans with you, then on its own builds the spec, opens a draft PR, reviews it and runs the fix rounds. You only take part in planning. |
+| `/create-it` | Runs the whole loop as an orchestrator: plans with you, then on its own runs build, stage, each review round and each fix round in a new agent session, so every review starts unbiased. You only take part in planning. |
 | `/explore-it` | Maps your environment (code host, tracker, CI, registries, cloud auth, conventions, gates) into `ENV_MAP.md` without recording secrets, then drafts the config below from what you confirm. |
 | `/plan-it` | Confirms the goal, interviews you one question at a time, confirms functional and non-functional requirements, proposes up to 3 approaches, then writes a versioned spec for the smallest version that solves the problem: requirements with nested EARS acceptance criteria (`F1.1`…), out of scope, future follow-ups, testing, decisions. |
 | `/build-it` | Builds the spec on a Conventional Branch with the smallest complete change and test-first logic, until the criteria and the definition of done are met and the gates pass. Also fixes review findings. |
@@ -32,6 +32,8 @@ Each phase skill also works alone, for example `/review-it #12` on a colleague's
 Each phase reads `docs/create-it/<phase>.md` in the repo, then `~/.config/create-it/<phase>.md`, then its defaults. Optional headings: `## Rules`, `## Gates`, `## Then` (what to chain into), and `## Code Host` in `stage.md`. Your personal rules add to the team's and cannot drop them. See [docs/config.md](docs/config.md) for the details and a solo and an enterprise example.
 
 ## Upgrading from 0.2
+
+0.5 makes `/create-it` an orchestrator: each phase after planning runs in its own agent session and ends with a `create-it-report` block. Agents without subagents run the phases inline, with a warning. Phase skills called directly are unchanged.
 
 0.4 makes specs iterative: plan-it confirms the goal and the functional and non-functional requirements, proposes up to 3 approaches, and writes acceptance criteria nested under each requirement (`F1.1`), with Future follow-ups; build-it and review-it share one definition of done. Older specs with flat `AC1` criteria still work.
 
