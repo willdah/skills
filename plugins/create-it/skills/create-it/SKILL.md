@@ -28,7 +28,7 @@ Agent chat (status, progress, the summary): terse, fragments OK. Warnings and an
 
 ## Delegate
 
-You are the orchestrator. Plan with the user here; run every later phase in a new agent session (in Claude Code, the `Agent` tool), so each phase starts with a fresh context and each review sees the change as a colleague would. Never continue an earlier session: each build, stage, review round and fix round gets its own.
+You are the orchestrator. Plan with the user here; run every later phase in a new agent session that does not inherit this conversation (in Claude Code, the `Agent` tool, not a fork), so each phase starts with a fresh context and each review sees the change as a colleague would. Never continue an earlier session: each build, stage, review round and fix round gets its own.
 
 Each delegated prompt says: run the phase skill, by the name your agent lists it under (in Claude Code, `create-it:build-it` and so on), with the arguments given below, which start `called by create-it:`; then end with the report below. Pass only what the phase needs: the spec reference, the branch or PR, the round, and for stage-it the assumptions. Paste the report schema into every prompt.
 
@@ -54,7 +54,7 @@ ready: <yes | no>
 ```
 ````
 
-Keep only these fields. Do not read the diff, logs or findings yourself; that detail belongs to the phase sessions. Make every decision below from the report. Read only the last `create-it-report` block in a reply. A reply with no block, more than one, or one you cannot read, counts as `status: blocked`.
+Keep only these fields (and, from plan-it, the other child references). Do not read the diff, logs or findings yourself; that detail belongs to the phase sessions. Make every decision below from the report. Read only the last `create-it-report` block in a reply. A reply with no block, or one you cannot read, counts as `status: blocked`.
 
 **No subagents.** If your agent cannot start a new session, run each phase inline with the skill tool (in Claude Code, `Skill`), with the same arguments. Say once `no subagents; running phases inline (review not isolated)`, and repeat it in the summary.
 

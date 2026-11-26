@@ -68,7 +68,7 @@ skills/                                  # repo: willdah/skills
 │   ├── .claude-plugin/plugin.json       # version 0.5.0
 │   ├── skills/{create-it,explore-it,plan-it,build-it,stage-it,review-it}/{SKILL.md,CREDITS.md}
 │   ├── docs/config.md
-│   ├── docs/specs/{create-it,iterative-specs}.md
+│   ├── docs/specs/{create-it,iterative-specs,orchestrator}.md
 │   ├── README.md
 │   └── CREDITS.md
 ├── README.md
