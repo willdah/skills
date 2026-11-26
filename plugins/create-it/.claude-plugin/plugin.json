@@ -1,6 +1,6 @@
 {
   "name": "create-it",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "SDLC skills (explore, plan, build, stage, review, plus a one-shot driver) with proven methods built in, tailored to your environment through short config files.",
   "author": { "name": "Will (willdah)", "url": "https://github.com/willdah" },
   "repository": "https://github.com/willdah/skills",

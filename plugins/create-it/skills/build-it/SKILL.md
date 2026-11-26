@@ -115,9 +115,9 @@ Every change meets this, whatever the spec says. build-it builds to it; review-i
 
 Input is a review on a PR, optionally with `round k of N` from a chained loop.
 
-1. Fetch the review's findings (Must fix / Should fix / Nice to have) and the spec.
+1. Fetch the review's findings (`issue (blocking)` / `suggestion (non-blocking)` / `nitpick (non-blocking)`) and the spec.
 2. Check out the PR's branch.
-3. Fix every **Must fix**. Fix a **Should fix** when the fix stays inside code this PR changes. Skip **Nice to have**. The method in step 3 applies to every fix.
+3. Fix every `issue (blocking)` finding. Fix a `suggestion (non-blocking)` finding when the fix stays inside code this PR changes. Skip `nitpick (non-blocking)` findings. The method in step 3 applies to every fix.
 4. Commit the fixes (conventional commits), run the gates (step 4), push.
 5. Reply on each finding: `fixed in <sha>` or `skipped: <reason>`.
 6. Update the PR body's criteria checklist if the fixes changed it.

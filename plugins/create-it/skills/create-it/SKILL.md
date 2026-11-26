@@ -47,8 +47,8 @@ criteria:
 assumptions:
 - <assumption>
 verdict: <review verdict>
-must_fix:
-- <numbered Must fix finding, one line>
+blocking:
+- <numbered issue (blocking) finding, one line>
 spec_stale: <yes | no>
 ready: <yes | no>
 ```
@@ -79,9 +79,9 @@ In a new session, run `stage-it`: `called by create-it: <branch>, spec <referenc
 With k = 0:
 
 1. In a new session, run `review-it`: `called by create-it: <PR>, spec <reference>, round k of N`. Pass nothing else: no assumptions, no earlier findings, no build reasoning.
-2. Stop the loop if `status: blocked`, or `spec_stale: yes`, or `must_fix` is `none`, or k = N, or k ≥ 1 and `must_fix` is the same as the previous round's (the same file and problem, whatever the wording).
+2. Stop the loop if `status: blocked`, or `spec_stale: yes`, or `blocking` is `none`, or k = N, or k ≥ 1 and `blocking` is the same as the previous round's (the same file and problem, whatever the wording).
 3. Otherwise, in a new session, run `build-it`: `called by create-it: address review on <PR>, round k+1 of N`. If `status: blocked`, stop the run. Else set k = k + 1 and go to 1.
 
 ## 5. Summary
 
-Tell the user, once, from the reports: the spec reference, the branch, the PR link, the last review's verdict, whether the PR is ready, and if it is not, what blocks it (open Must fix, stale spec, red gate, unmet criterion, a blocked phase). Add any assumptions, any child specs not started, and the no-subagents warning if it applied.
+Tell the user, once, from the reports: the spec reference, the branch, the PR link, the last review's verdict, whether the PR is ready, and if it is not, what blocks it (open issue (blocking) finding, stale spec, red gate, unmet criterion, a blocked phase). Add any assumptions, any child specs not started, and the no-subagents warning if it applied.

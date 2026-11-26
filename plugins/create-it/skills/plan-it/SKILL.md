@@ -61,7 +61,7 @@ Ask nothing else until the user confirms the goal. An interview that starts befo
 - Give your recommended answer with each question, so the user can accept in a word.
 - When the code can answer a question, read the code instead of asking.
 - Ask about the problem: who uses it, what must happen, the constraints (load, security, compatibility, deadlines). Do not pick a solution yet; approaches come in step 5.
-- Push "nice to have" items to Future follow-ups instead of requirements, so the spec stays the smallest version that solves the problem.
+- Push optional extras to Future follow-ups instead of requirements, so the spec stays the smallest version that solves the problem.
 - Resolve the questions that others depend on first.
 
 ## 4. Confirm the requirements
