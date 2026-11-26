@@ -26,32 +26,62 @@ Agent chat (status, progress, the summary): terse, fragments OK. Warnings and an
 - Say in one line: `create-it: plan → build → stage → review, up to N fix rounds`.
 - No create-it config at either level: run on defaults and say once `no create-it config; using defaults (run /explore-it to tailor)`. Do not require explore-it first.
 
-Call each phase skill with the Skill tool, by the name your agent lists it under (in Claude Code, `create-it:plan-it` and so on). Start every call's arguments with `called by create-it:`. That tells the skill to do its phase, chain to nothing and return its result to you.
+## Delegate
+
+You are the orchestrator. Plan with the user here; run every later phase in a new agent session (in Claude Code, the `Agent` tool), so each phase starts with a fresh context and each review sees the change as a colleague would. Never continue an earlier session: each build, stage, review round and fix round gets its own.
+
+Each delegated prompt says: run the phase skill, by the name your agent lists it under (in Claude Code, `create-it:build-it` and so on), with the arguments given below, which start `called by create-it:`; then end with the report below. Pass only what the phase needs: the spec reference, the branch or PR, the round, and for stage-it the assumptions. Paste the report schema into every prompt.
+
+**Report.** Each phase ends its reply with one block like this. It fills the keys it owns and writes `none` for the rest:
+
+````
+```create-it-report
+phase: <plan-it | build-it | stage-it | review-it>
+status: <done | blocked>
+blocked: <the reason, or none>
+spec: <reference>
+branch: <branch>
+pr: <PR link>
+criteria:
+- <ID> <met | not met: why>
+assumptions:
+- <assumption>
+verdict: <review verdict>
+must_fix:
+- <numbered Must fix finding, one line>
+spec_stale: <yes | no>
+ready: <yes | no>
+```
+````
+
+Keep only these fields. Do not read the diff, logs or findings yourself; that detail belongs to the phase sessions. Make every decision below from the report. A reply with no `create-it-report` block, or one you cannot read, counts as `status: blocked`.
+
+**No subagents.** If your agent cannot start a new session, run each phase inline with the skill tool (in Claude Code, `Skill`), with the same arguments. Say once `no subagents; running phases inline (review not isolated)`, and repeat it in the summary.
 
 ## 1. Plan
 
-Call `plan-it` with the request. This is the only step where you talk with the user. plan-it confirms the goal, interviews them, confirms the requirements and has them pick an approach, and writes and stores the spec only when they agree. Keep the spec reference (`#N`, URL or path).
+Call `plan-it` inline, with the skill tool: `called by create-it: <request>`. This is the only step where you talk with the user. plan-it confirms the goal, interviews them, confirms the requirements and has them pick an approach, and writes and stores the spec only when they agree. Keep `spec` from its report.
 
 Plan-it may split large work into a parent and children. If it does, build only the first child that nothing blocks, and list the other children in the summary as not started.
 
 ## 2. Build
 
-Call `build-it`: `called by create-it: <spec reference>; do not ask the user, record any assumption the spec does not cover and report it`. Keep the branch, the criteria status and the assumptions.
+In a new session, run `build-it`: `called by create-it: <spec reference>; do not ask the user, record any assumption the spec does not cover and report it`. Keep `branch`, `criteria` and `assumptions`.
 
-build-it stops on a red gate it cannot fix: stop the run and go to step 5.
+`status: blocked` (a red gate it cannot fix): stop the run and go to step 5.
 
 ## 3. Stage
 
-Call `stage-it`: `called by create-it: <branch>, spec <reference>; add these assumptions to the PR body: <list>`. Keep the PR link. If stage-it stops on a red gate, stop the run and go to step 5.
+In a new session, run `stage-it`: `called by create-it: <branch>, spec <reference>; add these assumptions to the PR body: <list>`. Keep `pr`. If `status: blocked`, stop the run and go to step 5.
 
 ## 4. Review and fix
 
 With k = 0:
 
-1. Call `review-it`: `called by create-it: <PR>, round k of N`.
-2. Stop the loop if the review says the spec is stale, or no **Must fix** is open, or k = N, or k ≥ 1 and the **Must fix** findings are the same as the previous round's.
-3. Otherwise call `build-it`: `called by create-it: address review on <PR>, round k+1 of N`. If it stops on a red gate, stop the run. Else set k = k + 1 and go to 1.
+1. In a new session, run `review-it`: `called by create-it: <PR>, spec <reference>, round k of N`. Pass nothing else: no assumptions, no earlier findings, no build reasoning.
+2. Stop the loop if `status: blocked`, or `spec_stale: yes`, or `must_fix` is `none`, or k = N, or k ≥ 1 and `must_fix` is the same as the previous round's.
+3. Otherwise, in a new session, run `build-it`: `called by create-it: address review on <PR>, round k+1 of N`. If `status: blocked`, stop the run. Else set k = k + 1 and go to 1.
 
 ## 5. Summary
 
-Tell the user, once: the spec reference, the branch, the PR link, the last review's verdict, whether the PR is ready, and if it is not, what blocks it (open Must fix, stale spec, red gate, unmet criterion). Add any assumptions, and any child specs not started.
+Tell the user, once, from the reports: the spec reference, the branch, the PR link, the last review's verdict, whether the PR is ready, and if it is not, what blocks it (open Must fix, stale spec, red gate, unmet criterion, a blocked phase). Add any assumptions, any child specs not started, and the no-subagents warning if it applied.
