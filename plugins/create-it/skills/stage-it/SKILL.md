@@ -51,11 +51,11 @@ Push the branch and set its upstream.
 
 ## 3. Find the spec
 
-From the `Spec:` commit trailer build-it wrote, the branch name, or the user's reference (`#N`, URL, path). Read its acceptance criteria.
+From the `Spec:` commit trailer build-it wrote, the branch name, or the user's reference (`#N`, URL, path). Read its acceptance criteria. Acceptance criteria are the checkboxes under each requirement in the spec's `## Requirements` (IDs like `F1.1`, `N2.1`). An older spec with a flat `## Acceptance criteria` section (`AC1`…) works the same way: its items are the criteria.
 
 The version for "Built against spec v<N>" comes from the `Spec:` trailer, not from the spec's current version: if the spec changed after the build, review-it must be able to see that. No trailer: use the current version and say so.
 
-No spec: use the criteria build-it reported. None reported: write 3–5 criteria (IDs `AC1`…) from the commits, show them, and continue only when the user confirms.
+No spec: use the criteria build-it reported. None reported: write 1–3 requirements (`F1`, `N1`), each with its criteria (`F1.1`…, EARS for behaviour) from the commits, show them, and continue only when the user confirms.
 
 ## 4. Write the body
 
@@ -118,8 +118,8 @@ Spec block, always appended:
 Closes #N   <!-- omit with no tracker issue; use the tracker's own syntax when not GitHub -->
 Built against spec v<N>
 
-- [x] AC1: <criterion>
-- [ ] AC3: <criterion> — not met: <why>
+- [x] F1.1: <criterion>
+- [ ] N1.1: <criterion> — not met: <why>
 ```
 
 Tick each criterion against the actual diff, not against intent. Apply every `## Rules` item, for example a required checklist.

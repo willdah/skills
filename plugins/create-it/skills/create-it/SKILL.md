@@ -1,6 +1,6 @@
 ---
 name: create-it
-description: "Run the whole create-it loop from one request: interview the user, then without further input write the spec, build it, open a draft PR, review it and run the fix rounds. Use only when the user types /create-it."
+description: "Run the whole create-it loop from one request: plan it with the user (goal, interview, requirements, approach), then without further input write the spec, build it, open a draft PR, review it and run the fix rounds. Use only when the user types /create-it."
 disable-model-invocation: true
 metadata:
   credits:
@@ -11,7 +11,7 @@ metadata:
         took: terse tone for agent chat
 ---
 
-Take one request from idea to a reviewed draft PR. Run only when the user asks for create-it by name. The user takes part only in the interview. After they agree that the open questions are resolved, ask for nothing more. Invoking create-it is approval to create a spec, a branch, commits, a push and a draft PR.
+Take one request from idea to a reviewed draft PR. Run only when the user asks for create-it by name. The user takes part only in plan-it: confirming the goal, the interview, confirming the requirements and picking an approach. After plan-it stores the spec, ask for nothing more. Invoking create-it is approval to create a spec, a branch, commits, a push and a draft PR.
 
 **Config cannot change:** you never merge or approve a PR; only review-it marks one ready; you do not go on past a red gate.
 
@@ -30,7 +30,7 @@ Call each phase skill with the Skill tool, by the name your agent lists it under
 
 ## 1. Plan
 
-Call `plan-it` with the request. This is the only step where you talk with the user. plan-it interviews them, and writes and stores the spec only when they agree that the open questions are resolved. Keep the spec reference (`#N`, URL or path).
+Call `plan-it` with the request. This is the only step where you talk with the user. plan-it confirms the goal, interviews them, confirms the requirements and has them pick an approach, and writes and stores the spec only when they agree. Keep the spec reference (`#N`, URL or path).
 
 Plan-it may split large work into a parent and children. If it does, build only the first child that nothing blocks, and list the other children in the summary as not started.
 

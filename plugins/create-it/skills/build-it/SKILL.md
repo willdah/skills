@@ -43,10 +43,12 @@ Say in one line what you loaded, for example `config: repo none, user ~/.config/
 - `#N`, a URL or a tracker key: fetch it and state its title and `Spec version`.
 - A file path: read it. If it is not committed, commit it first on the branch (step 2).
 - A review on a PR (for example `address review on #9`): go to **Fixing a review**.
-- Plain text, no spec: write 3–5 criteria (IDs `AC1`…, EARS for behaviour) and an out-of-scope list, show them, and start only when the user confirms.
+- Plain text, no spec: write 1–3 requirements (`F1`, `N1`), each with its criteria (`F1.1`…, EARS for behaviour) and an out-of-scope list, show them, and start only when the user confirms.
 - An ambiguous reference: ask.
 
-Work only to the acceptance criteria. Do not build what Out of scope excludes.
+Acceptance criteria are the checkboxes under each requirement in the spec's `## Requirements` (IDs like `F1.1`, `N2.1`). An older spec with a flat `## Acceptance criteria` section (`AC1`…) works the same way: its items are the criteria.
+
+Work only to the acceptance criteria. Do not build what Out of scope excludes. Do not build the spec's Future follow-ups either; keep them cheap (see Definition of done).
 
 Record the spec in the first commit on the branch as a trailer: `Spec: <reference> v<N>` (for example `Spec: #42 v3`). stage-it and review-it read it to detect a spec that changed after the build.
 
@@ -71,7 +73,7 @@ Take the change type from the spec once: `feat`, `fix`, `chore`, `docs`, `refact
 4. An installed dependency does it. Never add a dependency for a few lines.
 5. Otherwise the least new code that works.
 
-Add no abstraction, wrapper, option or "for later" code nobody asked for; each one is code someone must read, test and fix later. Keep the structure and conventions the codebase already has. For a bug fix, find every caller of the function you touch and fix the root cause once, in the shared code. Code you move keeps its error handling and validation.
+Add no abstraction, wrapper, option or "for later" code nobody asked for, including for a Future follow-up; each one is code someone must read, test and fix later. Keep the structure and conventions the codebase already has. For a bug fix, find every caller of the function you touch and fix the root cause once, in the shared code. Code you move keeps its error handling and validation.
 
 **Never cut:** validation at trust boundaries, error handling that prevents data loss, security, accessibility, anything the spec asks for. A shortcut with a known limit gets a comment: `shortcut: <the limit>, <when to upgrade>`.
 
@@ -88,16 +90,26 @@ Apply every `## Rules` item. Run typechecking and single test files as you go.
 Commits: conventional commits, one per logical step, unless `## Rules` sets another format.
 
 ## 4. Check before hand-off
-
 - Run every `## Gates` item. With no gates, find the obvious checks (CI config, `make check`, `npm test`, `pytest`, `cargo test`), run them, and say which you chose.
 - Run the full test suite once.
 - Check each criterion by ID against the actual diff: met, or not met with a reason.
+- Check the change against the **Definition of done** below.
 
 A red gate: fix it. If you cannot, stop and tell the user; do not hand off.
 
 ## 5. Hand off
 
 Tell the user: the branch, the spec version, each criterion by ID as met or not met, and one or two lines on what you skipped or did not check and any risk. stage-it puts those lines in the PR's Follow-ups. If `## Then` is set, call that skill with the spec reference and the branch.
+
+## Definition of done
+
+Every change meets this, whatever the spec says. build-it builds to it; review-it checks it. A repo adds items under `## Rules` or `## Gates`; none of these can be removed.
+
+- Every acceptance criterion is met, with evidence: a test, a command's output or a screenshot.
+- Gates are green. New non-trivial logic and bug fixes have a test that fails without the change.
+- Built for change: each concern lives in one place, so adding a field, rule or case is a local edit; names match the domain; no dead code.
+- Future follow-ups stay cheap: nothing is built for them, and nothing blocks them. A change that makes one harder says so in the PR.
+- No option, layer or abstraction that no requirement needs.
 
 ## Fixing a review
 
