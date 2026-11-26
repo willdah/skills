@@ -26,7 +26,7 @@ Turn what the user wants into a spec that the other create-it skills check work 
 
 A spec describes the smallest version that solves the confirmed problem, not a full plan. It says what must be true and why; build-it decides how. Code keeps changing after this spec ships, so the spec also names the likely next steps, so that build-it keeps them cheap without building them.
 
-**Called by create-it** (arguments start `called by create-it:`): do this phase, chain to nothing (skip `## Then`), and end with the `create-it-report` block the caller gives you, filling `phase`, `status`, `blocked` and `spec`.
+**Called by create-it** (arguments start `called by create-it:`): do this phase, chain to nothing (skip `## Then`), and end with the `create-it-report` block the caller gives you, filling `phase`, `status`, `blocked` and `spec`; when you split the work, `spec` is the first child that nothing blocks, and list the other children's references above the block.
 
 ## Tone
 
